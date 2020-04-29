@@ -1,0 +1,500 @@
+<ns:OME UUID="http://www.company.org/cum/sonoras" Creator="string" xmlns:ns="http://www.openmicroscopy.org/Schemas/OME/2016-06">
+  <!--Optional:-->
+  <ns:Rights>
+    <!--Optional:-->
+    <ns:RightsHolder>string</ns:RightsHolder>
+    <!--Optional:-->
+    <ns:RightsHeld>string</ns:RightsHeld>
+  </ns:Rights>
+  <!--You have a CHOICE of the next 2 items at this level-->
+  <!--Zero or more repetitions:-->
+  <ns:Project Name="string" ID="string">
+    <!--Optional:-->
+    <ns:Description>string</ns:Description>
+    <!--Optional:-->
+    <ns:ExperimenterRef ID="string"/>
+    <!--Optional:-->
+    <ns:ExperimenterGroupRef ID="string"/>
+    <!--Zero or more repetitions:-->
+    <ns:DatasetRef ID="string"/>
+    <!--Zero or more repetitions:-->
+    <ns:AnnotationRef ID="string"/>
+  </ns:Project>
+  <!--Zero or more repetitions:-->
+  <ns:Dataset Name="string" ID="string">
+    <!--Optional:-->
+    <ns:Description>string</ns:Description>
+    <!--Optional:-->
+    <ns:ExperimenterRef ID="string"/>
+    <!--Optional:-->
+    <ns:ExperimenterGroupRef ID="string"/>
+    <!--Zero or more repetitions:-->
+    <ns:ImageRef ID="string"/>
+    <!--Zero or more repetitions:-->
+    <ns:AnnotationRef ID="string"/>
+  </ns:Dataset>
+  <!--Zero or more repetitions:-->
+  <ns:Folder ID="string" Name="string">
+    <!--Optional:-->
+    <ns:Description>string</ns:Description>
+    <!--Zero or more repetitions:-->
+    <ns:FolderRef ID="string"/>
+    <!--Zero or more repetitions:-->
+    <ns:ImageRef ID="string"/>
+    <!--Zero or more repetitions:-->
+    <ns:ROIRef ID="string"/>
+    <!--Zero or more repetitions:-->
+    <ns:AnnotationRef ID="string"/>
+  </ns:Folder>
+  <!--Zero or more repetitions:-->
+  <ns:Experiment ID="string" Name="string" Type="SPIM" LabellingMethod="BiarsenicalDye">
+    <!--1 or more repetitions:-->
+    <ns:ExperimenterRef ID="string"/>
+    <ns:Sample ID="string" Name="string" MountingMedium="string" MountingMediumRefractiveIndex="1.5E2">
+      <!--Optional:-->
+      <ns:Description>string</ns:Description>
+      <!--Optional:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:Sample>
+    <!--Zero or more repetitions:-->
+    <ns:MicrobeamManipulation ID="string" Type="InverseFRAP">
+      <!--Zero or more repetitions:-->
+      <ns:ExperimenterRef ID="string"/>
+      <!--1 or more repetitions:-->
+      <ns:ROIRef ID="string"/>
+      <!--1 or more repetitions:-->
+      <ns:LightSourceSettings ID="string" Wavelength="1.5E2" WavelengthUnit="nm" PowerSettings="1.5E2" PowerSettingsUnit="W" Attenuation="1.5E2"/>
+      <!--Optional:-->
+      <ns:Description>string</ns:Description>
+      <!--Optional:-->
+      <ns:AnnotationRef/>
+    </ns:MicrobeamManipulation>
+    <!--Optional:-->
+    <ns:Description>string</ns:Description>
+    <!--Optional:-->
+    <ns:AnnotationRef ID="string"/>
+  </ns:Experiment>
+  <!--Zero or more repetitions:-->
+  <ns:Plate ID="string" Name="string" Status="string" ExternalIdentifier="string" ColumnNamingConvention="number" RowNamingConvention="number" WellOriginX="1.5E2" WellOriginXUnit="reference frame" WellOriginY="1.5E2" WellOriginYUnit="reference frame" Rows="3" Columns="3" FieldIndex="3">
+    <!--Optional:-->
+    <ns:Description>string</ns:Description>
+    <!--Zero or more repetitions:-->
+    <ns:Well ID="string" Column="3" Row="3" ExternalDescription="string" ExternalIdentifier="string" Type="string" Color="-1">
+      <!--Zero or more repetitions:-->
+      <ns:WellSample ID="string" PositionX="1.5E2" PositionXUnit="reference frame" PositionY="1.5E2" PositionYUnit="reference frame" Timepoint="2009-05-16T05:42:28" Index="3">
+        <!--Optional:-->
+        <ns:ImageRef ID="string"/>
+      </ns:WellSample>
+      <!--Optional:-->
+      <ns:ReagentRef ID="string"/>
+      <!--Zero or more repetitions:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:Well>
+    <!--Zero or more repetitions:-->
+    <ns:AnnotationRef ID="string"/>
+    <!--Zero or more repetitions:-->
+    <ns:PlateAcquisition ID="string" Name="string" EndTime="2003-08-08T17:18:37-07:00" StartTime="2012-09-13T06:00:34-07:00" MaximumFieldCount="3">
+      <!--Optional:-->
+      <ns:Description>string</ns:Description>
+      <!--Zero or more repetitions:-->
+      <ns:WellSampleRef ID="string"/>
+      <!--Zero or more repetitions:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:PlateAcquisition>
+  </ns:Plate>
+  <!--Zero or more repetitions:-->
+  <ns:Screen ID="string" Name="string" ProtocolIdentifier="string" ProtocolDescription="string" ReagentSetDescription="string" ReagentSetIdentifier="string" Type="string">
+    <!--Optional:-->
+    <ns:Description>string</ns:Description>
+    <!--Zero or more repetitions:-->
+    <ns:Reagent ID="string" Name="string" ReagentIdentifier="string">
+      <!--Optional:-->
+      <ns:Description>string</ns:Description>
+      <!--Zero or more repetitions:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:Reagent>
+    <!--Zero or more repetitions:-->
+    <ns:PlateRef ID="string"/>
+    <!--Zero or more repetitions:-->
+    <ns:AnnotationRef ID="string"/>
+  </ns:Screen>
+  <!--Zero or more repetitions:-->
+  <ns:Experimenter ID="string" FirstName="string" MiddleName="string" LastName="string" Email="string" Institution="string" UserName="string">
+    <!--Zero or more repetitions:-->
+    <ns:AnnotationRef ID="string"/>
+  </ns:Experimenter>
+  <!--Zero or more repetitions:-->
+  <ns:ExperimenterGroup Name="string" ID="string">
+    <!--Optional:-->
+    <ns:Description>string</ns:Description>
+    <!--Zero or more repetitions:-->
+    <ns:ExperimenterRef ID="string"/>
+    <!--Zero or more repetitions:-->
+    <ns:Leader ID="string"/>
+    <!--Zero or more repetitions:-->
+    <ns:AnnotationRef ID="string"/>
+  </ns:ExperimenterGroup>
+  <!--Zero or more repetitions:-->
+  <ns:Instrument ID="string" Name="string">
+    <!--1 or more repetitions:-->
+    <ns:MicroscopeBody Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.corp.com/turbine/iovis" ID="string" Name="string" Type="Electrophysiology" EyePieceFieldNumber="1.5E2">
+      <!--Optional:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:MicroscopeBody>
+    <ns:MicroscopeTable Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.sample.com/bella/nubibus" ID="string" Name="string" Type="Other" TableWidth="1.5E2" TableWidthUnit="cm" TableDepth="1.5E2" TableDepthUnit="cm">
+      <!--Optional:-->
+      <ns:AnnotationRef/>
+    </ns:MicroscopeTable>
+    <!--1 or more repetitions:-->
+    <ns:LightSourceGroup Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.test.edu/rapidum/ac" ID="string" Name="string" NominalPowerOutput="1.5E2" NominalPowerOutputUnit="W">
+      <!--Optional:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:LightSourceGroup>
+    <!--1 or more repetitions:-->
+    <ns:LightSourceCouplingGroup Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.my.org/circum/aris" ID="string" Name="string" Transmittance="1.5E2">
+      <!--Optional:-->
+      <ns:CouplingLensRef ID="string"/>
+      <!--Optional:-->
+      <ns:AnnotationRef/>
+    </ns:LightSourceCouplingGroup>
+    <!--1 or more repetitions:-->
+    <ns:SamplePositioningGroup Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.sample.org/arce/claustra" ID="string" Name="string" ZTravelRange="1.5E2" ZTravelRangeUnit="µm" Resolution="1.5E2" ResolutionUnit="nm" PositionLinearityError="1.5E2" Repetability="1.5E2" RepetabilityUnit="nm" SettlingTime="1.5E2" SettlingTimeUnit="ms" MaxVelocity="1.5E2" MaxVelocityUnit="nm/s">
+      <!--Optional:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:SamplePositioningGroup>
+    <!--Zero or more repetitions:-->
+    <ns:AutoFocus Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.any.com/certo/quisquam" ID="string" Name="string" Type="Image based">
+      <!--Optional:-->
+      <ns:AnnotationRef/>
+    </ns:AutoFocus>
+    <!--Zero or more repetitions:-->
+    <ns:Optovar Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.sample.gov/ac/sed" ID="string" Name="string" Magnification="1.5E2" LensType="Convex Meniscus">
+      <!--Optional:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:Optovar>
+    <!--1 or more repetitions:-->
+    <ns:Objective Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.sample.org/austris/annos" ID="string" Name="string" Correction="Pl" NominalMagnification="1.5E2" LensNA="1.5E2" Infinity="false" WorkingDistance="1.5E2" WorkingDistanceUnit="mm" Iris="false" CorrectionCollar="false" CorrectionCollarType="Temperature" ObjectiveFieldNumber="1.5E2" ParfocalizingDistance="1.5E2" ParfocalizingDistanceUnit="mm" BackFocalPlanePosition="1.5E2" BackFocalPlanePositionUnit="mm">
+      <!--Optional:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:Objective>
+    <!--Zero or more repetitions:-->
+    <ns:LensGroup Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.company.com/faciat/magno" ID="string" Name="string" Type="Concave Meniscus" Magnification="3" Construction="Composite" Geometry="Drum" RefractiveIndex="1.5E2" AttenuationCoefficient="1.5E2" FocalDistanceToObject="1.5E2" FocalDistanceToObjectUnit="Mm" FocalDistanceToImage="1.5E2" FocalDistanceToImageUnits="ua" FocalLength="1.5E2" FocalLengthUnit="fm" Diameter="1.5E2" DiameterUnit="cm" AbbeNumber="1.5E2" RadiusOfCurvature="1.5E2" RadiusOfCurvatureUnit="dm" MaterialName="N-SF11 (Dense Flint)" GlassCode="1" Density="1.5E2" DensityUnit="µg/ng">
+      <!--Optional:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:LensGroup>
+    <!--Zero or more repetitions:-->
+    <ns:Prism Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.sample.com/insuper/mollitque" ID="string" Name="string" Type="Other" RefractiveIndex="1.5E2" Reflectance="1.5E2" AngleOfIncidence="1.5E2" AngleOfIncidenceUnit="deg" DeviationAngle="1.5E2" DevianceAngleUnit="gon" Geometry="Other" AbbeNumber="1.5E2" PrismAngle="1.5E2" PrismAngleUnit="deg" MaterialName="Other" GlassCode="string" Density="1.5E2" DensityUnit="mg/µg">
+      <ns:WavelengthRange CutIn="1.5E2" CutInUnit="nm" CutOut="1.5E2" CutOutUnit="nm" WavelenghtProfile="http://www.your.com/illum/frenat"/>
+      <!--Optional:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:Prism>
+    <!--Zero or more repetitions:-->
+    <ns:PolarizationOptics Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.sample.com/aris/mollitque" ID="string" Name="string" Function="Polarizer" Construction="Other" Fabrication="Other" Retardation="Full Wave" MaterialName="Other" GlassCode="string">
+      <ns:WavelengthRange CutIn="1.5E2" CutInUnit="nm" CutOut="1.5E2" CutOutUnit="nm" WavelenghtProfile="http://www.sample.edu/circum/vasto"/>
+      <!--Optional:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:PolarizationOptics>
+    <!--Zero or more repetitions:-->
+    <ns:FilterSet Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.test.com/aris/tempestatesque" ID="string" Name="string">
+      <!--Optional:-->
+      <ns:ExcitationFilterRef ID="string"/>
+      <!--Optional:-->
+      <ns:StandardDichroicRef ID="string"/>
+      <!--Optional:-->
+      <ns:EmissionFilterRef ID="string"/>
+      <!--Optional:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:FilterSet>
+    <!--1 or more repetitions:-->
+    <ns:FilterGroup Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.sample.com/incedo/premit" ID="string" Name="string" Type="BandPass" ReflectionCoating="string" FilterWheel="string" TransmittanceProfileFile="http://www.your.org/acuto/nubibus">
+      <!--1 or more repetitions:-->
+      <ns:TransmittanceRange CutIn="1.5E2" CutInUnit="nm" CutOut="1.5E2" CutOutUnit="nm" Transmittance="1.5E2"/>
+      <!--Optional:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:FilterGroup>
+    <!--1 or more repetitions:-->
+    <ns:MirrorGroup Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.company.gov/dedit/qui" ID="string" Name="string" AngleOfIncidence="1.5E2" AngleOfIncidenceUnit="deg" MirrorType="Concave" Geometry="Cylindrical" RadiusOfCurvature="1.5E2" RadiusOfCurvatureUnit="Gm" SubstrateType="Dielectric" SubstrateMaterial="Other" GlassCode="string">
+      <!--Optional:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:MirrorGroup>
+    <!--1 or more repetitions:-->
+    <ns:DetectorGroup Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.my.org/sonoras/verrantque" ID="string" Name="string" Gain="1.5E2" Mount="C-mount" ReadNoise="1.5E2" ReadNoiseUnit="e- rms" DetectorNoiseModel="Poisson" DarkCurrentRate="1.5E2" DarkCurrentRateUnit="e-/pixel/sec" PeakWavelength="string" PeakWavelenghtUnit="nm" QuantumEfficiencyatPeakWavelength="1.5E2" AmbientOperatingTemperature="1.5E2" AmbientOperatingTemperatureUnit="°C" AmbientOperatingHumidity="1.5E2">
+      <ns:WavelengthRange CutIn="1.5E2" CutInUnit="nm" CutOut="1.5E2" CutOutUnit="nm" WavelenghtProfile="http://www.my.edu/dare/laxas"/>
+      <!--Optional:-->
+      <ns:RelayLensRef ID="string"/>
+      <!--Optional:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:DetectorGroup>
+    <!--Zero or more repetitions:-->
+    <ns:IntensityCalibrationTool Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.sample.com/sceptra/volutans" ID="string" Name="string" Type="Excitation">
+      <!--Optional:-->
+      <ns:AnnotationRef/>
+    </ns:IntensityCalibrationTool>
+    <!--Optional:-->
+    <ns:AnnotationRef ID="string"/>
+  </ns:Instrument>
+  <!--Zero or more repetitions:-->
+  <ns:Image ID="string" Name="string" AcquisitionDate="2010-12-31-08:00" SizeX="3" SizeY="3" SizeZ="3" SizeC="3" SizeT="3" PhysicalSizeX="1.5E2" PhysicalSizeXUnit="µm" PhysicalSizeY="1.5E2" PhysicalSizeYUnit="µm" PhysicalSizeZ="1.5E2" PhysicalSizeZUnit="µm" TimeIncrement="1.5E2" TimeIncrementUnit="s" DimensionOrder="XYTCZ" ChannelOrder="string" PixelType="int16" SignificantBits="3" Interleaved="true" BigEndian="true">
+    <ns:InstrumentRef ID="string"/>
+    <ns:ExperimentRef ID="string"/>
+    <!--Zero or more repetitions:-->
+    <ns:ExperimenterRef ID="string"/>
+    <!--Zero or more repetitions:-->
+    <ns:ExperimenterGroupRef ID="string"/>
+    <!--Zero or more repetitions:-->
+    <ns:MicrobeamManipulationRef ID="string"/>
+    <!--Zero or more repetitions:-->
+    <ns:ROIRef ID="string"/>
+    <!--Zero or more repetitions:-->
+    <ns:TIRFSettings ID="string" ThroughLens="true" TIRFAngle="1.5E2" TIRFAngleUnit="gon" Geometry="Ring">
+      <!--Optional:-->
+      <ns:Description>string</ns:Description>
+      <!--Optional:-->
+      <ns:AnnotationRef/>
+    </ns:TIRFSettings>
+    <!--Zero or more repetitions:-->
+    <ns:ImagingEnvironment Temperature="1.5E2" TemperatureUnit="°C" AirPressure="1.5E2" AirPressureUnit="mbar" Humidity="1.5E2" CO2Percent="1.5E2">
+      <!--Optional:-->
+      <ns:Map>
+        <!--Zero or more repetitions:-->
+        <ns:M K="string">string</ns:M>
+      </ns:Map>
+    </ns:ImagingEnvironment>
+    <!--1 or more repetitions:-->
+    <ns:MicroscopeSettings ID="string" FieldOfView="1.5E2" FieldOfViewUnit="nm" TotalEffectiveMagnification="1.5E2">
+      <!--Optional:-->
+      <ns:OptovarRef ID="string"/>
+      <ns:ObjectiveRef ID="string"/>
+    </ns:MicroscopeSettings>
+    <!--1 or more repetitions:-->
+    <ns:ObjectiveSettings ID="string" ActualMagnification="1.5E2" CoverslipThickness="1.5E2" ImmersionMedium="Oil" ImmersionRefractiveIndex="1.5E2" MeasuredRefractiveIndex="1.5E2" Temperature="1.5E2" TemperatureUnit="°C" IrisAperture="1.5E2" CorrectionCollarPosition="1.5E2"/>
+    <!--Zero or more repetitions:-->
+    <ns:OpticalCalibration ID="string" Date="2003-04-20-07:00" MedianSpotSize_FWHM="1.5E2" MedianSpotSize_FWHMUnit="nm" MedianTheoretical_FWHM="1.5E2" MedianTheoretical_FWHMUnit="nm" MinSpotSize_FWHM="1.5E2" MinSpotSize_FWHMUnit="nm" MinTheoretical_FWHM="1.5E2" MinTheoretical_FWHMUnit="1.5E2" MaxSpotSize_FWHM="1.5E2" MaxSpotSize_FWHMUnit="nm" MaxTheoretical_FWHM="1.5E2" MaxTheoretical_FWHMUnit="1.5E2" ZSpotSize_FWHM="1.5E2" ZSpotSize_FWHMUnit="1.5E2" FWHM_ZTheoretical="1.5E2" FWHM_ZTheoreticalUnit="nm" Planarity="1.5E2" PlanarityUnit="nm" Asymmetry="1.5E2" LateralChromaticShift="1.5E2" LateralChromaticShiftUnit="nm" AxialChromaticShift="1.5E2" AxialChromaticShiftUnit="nm">
+      <!--1 or more repetitions:-->
+      <ns:OpticalCalibrationImageRef ID="string"/>
+      <!--1 or more repetitions:-->
+      <ns:OpticalStandardGroup Manufacturer="string" Model="string" SerialNumber="string" LotNumber="string" SpecsFile="http://www.my.com/hic/arce" ID="string" Name="string">
+        <!--Zero or more repetitions:-->
+        <ns:AnnotationRef ID="string"/>
+      </ns:OpticalStandardGroup>
+      <!--Zero or more repetitions:-->
+      <ns:OpticalCalibrationReportRef ID="string" OpticalCalibrationSoftware="string"/>
+      <!--Optional:-->
+      <ns:AnnotationRef/>
+    </ns:OpticalCalibration>
+    <!--Zero or more repetitions:-->
+    <ns:DetectorCalibration ID="string" Date="2017-02-08" Method="string">
+      <!--Zero or more repetitions:-->
+      <ns:IntensityCalibrationToolRef ID="string"/>
+      <!--Optional:-->
+      <ns:AnnotationRef/>
+      <ns:CalibrationMap MetricType="Mean" IlluminationIntensity="1.5E2" NrOfImages="3">
+        <!--1 or more repetitions:-->
+        <ns:Row RowNr="3">
+          <!--1 or more repetitions:-->
+          <ns:Cell CellNr="3" CellValue="1.5E2" CellValueUnit="anySimpleType"/>
+        </ns:Row>
+      </ns:CalibrationMap>
+    </ns:DetectorCalibration>
+    <!--1 or more repetitions:-->
+    <ns:Plane ID="string" TheZ="3" TheT="3" TheC="3" Timestamp="1.5E2" TimestampUnit="s" ExposureTime="1.5E2" ExposureTimeUnit="s">
+      <!--Optional:-->
+      <ns:SamplePosition ID="string" Name="string" SamplePositionX="1.5E2" SamplePositionXUnit="reference frame" SamplePositionY="1.5E2" SamplePositionYUnit="reference frame" SamplePositionZ="1.5E2" SamplePositionZUnit="reference frame">
+        <!--Optional:-->
+        <ns:SamplePositioningRef ID="string"/>
+      </ns:SamplePosition>
+      <!--Optional:-->
+      <ns:FocalPosition ID="string" Name="string" StagePositionZ="1.5E2" StagePositionZUnit="reference frame">
+        <!--Optional:-->
+        <ns:SamplePositioningRef ID="string"/>
+        <!--Optional:-->
+        <ns:AutoFocusRef ID="string"/>
+      </ns:FocalPosition>
+      <!--Zero or more repetitions:-->
+      <ns:MechanicalCalibration ID="string" Date="2009-10-25-07:00" MeasuredLateralDrift="1.5E2" MeasuredLateralDriftUnit="µm" MeasuredFocalDrift="1.5E2" MeasuredFocalDriftUnit="µm" MeasuredRepeatability="1.5E2" MeasuredSettlingTime="1.5E2" MeasuredSettlingTimeUnit="s">
+        <!--Optional:-->
+        <ns:SamplePositioningRef ID="string"/>
+        <!--Optional:-->
+        <ns:AutoFocusRef ID="string"/>
+        <!--Optional:-->
+        <ns:AnnotationRef/>
+      </ns:MechanicalCalibration>
+      <!--Optional:-->
+      <ns:AnnotationRef/>
+      <!--You have a CHOICE of the next 1 items at this level-->
+      <ns:HashSHA1>696E7375706572696E7375706572696E73757065</ns:HashSHA1>
+    </ns:Plane>
+    <!--1 or more repetitions:-->
+    <ns:Channel ID="string" Name="string" SamplesPerPixel="3" IlluminationType="Confocal" PinholeSize="1.5E2" PinholeSizeUnit="µm" AcquisitionMode="NearFieldScanningOpticalMicroscopy" ContrastMethod="Darkfield" ExcitationWavelength="1.5E2" ExcitationWavelengthUnit="nm" EmissionWavelength="1.5E2" EmissionWavelengthUnit="nm" Fluorophore="string" NDFilter="1.5E2" PockelCellSetting="3" Color="-1">
+      <!--Zero or more repetitions:-->
+      <ns:LightSourceSettings ID="string" Wavelength="1.5E2" WavelengthUnit="nm" PowerSettings="1.5E2" PowerSettingsUnit="W" Attenuation="1.5E2"/>
+      <ns:LightPath ID="string" Name="string">
+        <!--Zero or more repetitions:-->
+        <ns:LightSourceCouplingRef ID="string"/>
+        <!--Zero or more repetitions:-->
+        <ns:FilterSetRef ID="string"/>
+        <!--Zero or more repetitions:-->
+        <ns:ExcitationFilterRef ID="string"/>
+        <!--Zero or more repetitions:-->
+        <ns:StandardDichroicRef ID="string"/>
+        <!--Zero or more repetitions:-->
+        <ns:EmissionFilterRef ID="string"/>
+        <!--Optional:-->
+        <ns:AdditionalOptics ID="string" Name="string">
+          <!--Zero or more repetitions:-->
+          <ns:AdditionalLensRef ID="string"/>
+          <!--Zero or more repetitions:-->
+          <ns:PrimsRef ID="string"/>
+          <!--Zero or more repetitions:-->
+          <ns:PolarizationOpticsRef ID="string"/>
+          <!--Zero or more repetitions:-->
+          <ns:AdditionalFilterRef ID="string"/>
+          <!--Zero or more repetitions:-->
+          <ns:AdditionalMirrorRef ID="string"/>
+          <ns:AnnotationRef ID="string"/>
+        </ns:AdditionalOptics>
+        <!--Optional:-->
+        <ns:AnnotationRef/>
+      </ns:LightPath>
+      <!--Zero or more repetitions:-->
+      <ns:DetectorSettingsGroup ID="string" EffectiveOffset="1.5E2" Integration="3" DetectorFieldOfView="1.5E2" DetectorFieldOfViewUnit="mm"/>
+      <!--Zero or more repetitions:-->
+      <ns:ExcitationCalibration ID="string" Date="2006-12-04-08:00" ObservedExcitationWavelenght="1.5E2" ObservedExcitationWavelenghtUnit="nm" ObservedExcitationPowerAtObjective="1.5E2" ObservedExcitationPowerAtObjectiveUnit="W" ObservedExcitationIrradiance="1.5E2" ObservedExcitationIrradianceUnit="W" ObservedExcitationVariance="1.5E2">
+        <!--Zero or more repetitions:-->
+        <ns:IntensityCalibrationToolRef ID="string"/>
+        <!--Optional:-->
+        <ns:AnnotationRef/>
+      </ns:ExcitationCalibration>
+      <!--Zero or more repetitions:-->
+      <ns:FIeldCalibration ID="string" Date="2017-01-02">
+        <!--1 or more repetitions:-->
+        <ns:FlatFieldImageRef ID="string"/>
+        <!--Optional:-->
+        <ns:AnnotationRef/>
+      </ns:FIeldCalibration>
+      <!--Optional:-->
+      <ns:AnnotationRef/>
+    </ns:Channel>
+    <!--You have a CHOICE of the next 3 items at this level-->
+    <!--1 or more repetitions:-->
+    <ns:BinData Compression="none" BigEndian="false" Length="10">aGlj</ns:BinData>
+    <!--1 or more repetitions:-->
+    <ns:TiffData IFD="0" FirstZ="0" FirstT="0" FirstC="0" PlaneCount="3">
+      <!--Optional:-->
+      <ns:UUID FileName="string">http://www.corp.com/nubibus/carcere</ns:UUID>
+    </ns:TiffData>
+    <!--1 or more repetitions:-->
+    <ns:MetadataOnly>anyType</ns:MetadataOnly>
+    <!--Optional:-->
+    <ns:Description>string</ns:Description>
+    <!--Optional:-->
+    <ns:AnnotationRef ID="string"/>
+  </ns:Image>
+  <!--Optional:-->
+  <ns:StructuredAnnotations>
+    <!--You have a CHOICE of the next 11 items at this level-->
+    <ns:XMLAnnotation ID="string" Namespace="http://www.any.org/rates/maria" Annotator="string">
+      <!--Optional:-->
+      <ns:Description>string</ns:Description>
+      <!--Zero or more repetitions:-->
+      <ns:AnnotationRef ID="string"/>
+      <ns:Value>
+        <!--You may enter ANY elements at this point-->
+        <AnyElement/>
+      </ns:Value>
+    </ns:XMLAnnotation>
+    <ns:FileAnnotation ID="string" Namespace="http://www.sample.org/ipsa/numen" Annotator="string">
+      <!--Optional:-->
+      <ns:Description>string</ns:Description>
+      <!--Zero or more repetitions:-->
+      <ns:AnnotationRef ID="string"/>
+      <ns:BinaryFile FileName="string" Size="10" MIMEType="string">
+        <!--You have a CHOICE of the next 2 items at this level-->
+        <ns:External href="http://www.your.org/maria/et" SHA1="666F6564657265666F6564657265666F65646572" Compression="none"/>
+        <ns:BinData Compression="none" BigEndian="false" Length="10">c2NpcmV0</ns:BinData>
+      </ns:BinaryFile>
+    </ns:FileAnnotation>
+    <ns:ListAnnotation ID="string" Namespace="http://www.sample.com/iaculata/montis" Annotator="string">
+      <!--Optional:-->
+      <ns:Description>string</ns:Description>
+      <!--Zero or more repetitions:-->
+      <ns:AnnotationRef ID="string"/>
+    </ns:ListAnnotation>
+    <ns:LongAnnotation ID="string" Namespace="http://www.company.com/premere/premit" Annotator="string">
+      <!--Optional:-->
+      <ns:Description>string</ns:Description>
+      <!--Zero or more repetitions:-->
+      <ns:AnnotationRef ID="string"/>
+      <ns:Value>10</ns:Value>
+    </ns:LongAnnotation>
+    <ns:DoubleAnnotation ID="string" Namespace="http://www.company.com/terras/vasto" Annotator="string">
+      <!--Optional:-->
+      <ns:Description>string</ns:Description>
+      <!--Zero or more repetitions:-->
+      <ns:AnnotationRef ID="string"/>
+      <ns:Value>1.051732E7</ns:Value>
+    </ns:DoubleAnnotation>
+    <ns:CommentAnnotation ID="string" Namespace="http://www.sample.org/dare/premit" Annotator="string">
+      <!--Optional:-->
+      <ns:Description>string</ns:Description>
+      <!--Zero or more repetitions:-->
+      <ns:AnnotationRef ID="string"/>
+      <ns:Value>string</ns:Value>
+    </ns:CommentAnnotation>
+    <ns:BooleanAnnotation ID="string" Namespace="http://www.any.org/arce/dea" Annotator="string">
+      <!--Optional:-->
+      <ns:Description>string</ns:Description>
+      <!--Zero or more repetitions:-->
+      <ns:AnnotationRef ID="string"/>
+      <ns:Value>true</ns:Value>
+    </ns:BooleanAnnotation>
+    <ns:TimestampAnnotation ID="string" Namespace="http://www.my.com/tempestatesque/ac" Annotator="string">
+      <!--Optional:-->
+      <ns:Description>string</ns:Description>
+      <!--Zero or more repetitions:-->
+      <ns:AnnotationRef ID="string"/>
+      <ns:Value>2000-10-19T05:09:34</ns:Value>
+    </ns:TimestampAnnotation>
+    <ns:TagAnnotation ID="string" Namespace="http://www.company.org/et/vinclis" Annotator="string">
+      <!--Optional:-->
+      <ns:Description>string</ns:Description>
+      <!--Zero or more repetitions:-->
+      <ns:AnnotationRef ID="string"/>
+      <ns:Value>string</ns:Value>
+    </ns:TagAnnotation>
+    <ns:TermAnnotation ID="string" Namespace="http://www.company.org/premere/sonoras" Annotator="string">
+      <!--Optional:-->
+      <ns:Description>string</ns:Description>
+      <!--Zero or more repetitions:-->
+      <ns:AnnotationRef ID="string"/>
+      <ns:Value>string</ns:Value>
+    </ns:TermAnnotation>
+    <ns:MapAnnotation ID="string" Namespace="http://www.sample.org/rapidum/imperio" Annotator="string">
+      <!--Optional:-->
+      <ns:Description>string</ns:Description>
+      <!--Zero or more repetitions:-->
+      <ns:AnnotationRef ID="string"/>
+      <ns:Value>
+        <!--Zero or more repetitions:-->
+        <ns:M K="string">string</ns:M>
+      </ns:Value>
+    </ns:MapAnnotation>
+  </ns:StructuredAnnotations>
+  <!--Zero or more repetitions:-->
+  <ns:ROI ID="string" Name="string">
+    <ns:Union>
+      <!--1 or more repetitions:-->
+      <ns:ShapeGroup FillColor="3" FillRule="EvenOdd" StrokeColor="3" StrokeWidth="1.5E2" StrokeWidthUnit="pixel" StrokeDashArray="string" Text="string" FontFamily="sans-serif" FontSize="3" FontSizeUnit="pt" FontStyle="Bold" Locked="true" ID="string" TheZ="3" TheT="3" TheC="3">
+        <!--Optional:-->
+        <ns:Transform A00="1.5E2" A10="1.5E2" A01="1.5E2" A11="1.5E2" A02="1.5E2" A12="1.5E2"/>
+        <!--Zero or more repetitions:-->
+        <ns:AnnotationRef ID="string"/>
+      </ns:ShapeGroup>
+    </ns:Union>
+    <!--Zero or more repetitions:-->
+    <ns:AnnotationRef ID="string"/>
+    <!--Optional:-->
+    <ns:Description>string</ns:Description>
+  </ns:ROI>
+  <ns:BinaryOnly MetadataFile="string" UUID="http://www.corp.gov/rates/arce"/>
+</ns:OME>
