@@ -56,10 +56,7 @@ template file? Not my favourite option though.
 
 ## Quick Start
 ```python
-from aicsxslt import Example
-
-a = Example()
-a.get_value()  # 10
+python transform.py
 ```
 
 ## Installation
