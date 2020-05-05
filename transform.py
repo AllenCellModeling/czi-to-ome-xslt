@@ -5,10 +5,12 @@ import lxml.etree as ET
 ###############################################################################
 
 resources = Path("./resources").resolve(strict=True)
-xslt = Path("./xslt").resolve(strict=True)  
-czixml = str((resources / "s_3_t_1_c_3_z_5_meta.xml").resolve(strict=True))
+xslt = Path("./xslt").resolve(strict=True)
+czixml = str((resources / "s_3_t_1_c_3_z_5_meta.xml"
+              ).resolve(strict=True))
 # commented out now that subblock metadata is in the czi metadata export
-czisubblock = str((resources / "s_3_t_1_c_3_z_5_subblock.xml").resolve(strict=True))
+czisubblock = str((resources / "s_3_t_1_c_3_z_5_subblock.xml"
+                   ).resolve(strict=True))
 template = str((xslt / "czi-to-ome.xsl").resolve(strict=True))
 output = Path("produced.ome.xml").resolve()
 
@@ -35,4 +37,5 @@ except Exception as e:
     print("-" * 80)
     print("Full Log:")
     for entry in transform.error_log:
-        print(f"{entry.filename}: {entry.line}, {entry.column}> {entry.message}>")
+        print((f"{entry.filename}: {entry.line}, "
+              f"{entry.column}> {entry.message}>"))
