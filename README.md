@@ -1,8 +1,6 @@
 # aicsxslt
 
-[![Build Status](https://github.com/heeler/aicsxslt/workflows/Build%20Master/badge.svg)](https://github.com/heeler/aicsxslt/actions)
-[![Documentation](https://github.com/heeler/aicsxslt/workflows/Documentation/badge.svg)](https://heeler.github.io/aicsxslt)
-[![Code Coverage](https://codecov.io/gh/heeler/aicsxslt/branch/master/graph/badge.svg)](https://codecov.io/gh/heeler/aicsxslt)
+[![Build Status](https://github.com/AllenCellModeling/czi-to-ome-xslt/workflows/Test%20and%20Lint/badge.svg)](https://github.com/AllenCellModeling/czi-to-ome-xslt/actions)
 
 This repo contains our XSLT transform sheets to go from CZI to OME metadata.
 The intent is to enable to use this as a git submodule and then apply the XSL transforms
