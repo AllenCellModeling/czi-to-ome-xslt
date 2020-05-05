@@ -60,7 +60,7 @@ python transform.py
 ```
 
 ## Installation
-**Stable Release:** `git clone https://github.com/AllenCellModeling/czi-to-ome.git`<br>
+**Stable Release:** `git clone https://github.com/AllenCellModeling/czi-to-ome-xslt.git`<br>
 
 
 ## Development
