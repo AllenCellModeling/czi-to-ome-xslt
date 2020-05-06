@@ -44,16 +44,3 @@ clean:  ## clean all build, python, and testing files
 	rm -fr coverage.xml
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
-
-build: ## run tox / run tests and lint
-	tox
-
-gen-docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/aicsxslt*.rst
-	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ aicsxslt **/tests/
-	$(MAKE) -C docs html
-
-docs: ## generate Sphinx HTML documentation, including API docs, and serve to browser
-	make gen-docs
-	$(BROWSER) docs/_build/html/index.html

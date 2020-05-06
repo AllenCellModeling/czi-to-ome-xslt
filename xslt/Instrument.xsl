@@ -6,7 +6,7 @@ ome/ome.xsd: 979 # # This means that for more details on how this section of the
 <xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <!-- Includes -->
-    <xsl:include href="commontypes.xsl"/>
+    <xsl:include href="CommonTypes.xsl"/>
 
     <!-- ManufacturerSpec/Model -->
     <!-- zisraw/Instrument.xsd: 26 -->
