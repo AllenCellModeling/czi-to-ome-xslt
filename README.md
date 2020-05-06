@@ -2,7 +2,7 @@
 
 [![Build Status](https://github.com/AllenCellModeling/czi-to-ome-xslt/workflows/Test%20Transform/badge.svg)](https://github.com/AllenCellModeling/czi-to-ome-xslt/actions)
 
-This repo contains our XSLT transform sheets to go from CZI to OME metadata.
+This repo contains our XSLT sheets to go from CZI to OME metadata.
 The intent is to enable use of this as a git submodule and then apply the XSL transforms
 within their project using their language of choice. We also hope that users will
 extend and improve the XSL transforms with their own contributions.
@@ -14,7 +14,7 @@ extend and improve the XSL transforms with their own contributions.
 Using [XSLT](https://en.wikipedia.org/wiki/XSLT) to map CZI metadata schemas to
 OME-TIFF metadata specifications.
 
-These resulting OME metadata conforms to the OME extension laid out by the
+The resulting OME metadata conforms to the OME extension laid out by the
 [4D Nucleome Initiative](https://github.com/WU-BIMAC/MicroscopyMetadata4DNGuidelines).
 
 ## Basics
