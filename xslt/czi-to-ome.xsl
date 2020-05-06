@@ -24,8 +24,8 @@
     <xsl:include href="Plate.xsl"/>
     <xsl:include href="StructuredAnnotations.xsl"/>
 
-    <xsl:param name="subblock_file" />
-    <xsl:variable name="subblocks" select="document($subblock_file)/Subblocks" />
+<!--    <xsl:param name="subblock_xml" />-->
+    <xsl:variable name="subblocks" select="/ImageDocument/Subblocks" />
 
     <!-- Begin Template -->
     <xsl:template match="/">

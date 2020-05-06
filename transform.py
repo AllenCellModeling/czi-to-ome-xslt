@@ -22,10 +22,15 @@ transform = ET.XSLT(template)
 
 # Parse CZI XML
 czixml = ET.parse(czixml)
+czisubblock = ET.parse(czisubblock)
+id = czixml.getroot()
+id.append(czisubblock.getroot())
+
 
 # Attempt to run transform
 try:
-    ome = transform(czixml, subblock_file=ET.XSLT.strparam(czisubblock))
+    ome = transform(czixml)
+    # subblock_file=ET.XSLT.strparam(czisubblock))
 
     # Write file
     with open(output, "w") as write_out:
