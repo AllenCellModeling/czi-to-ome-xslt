@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from pathlib import Path
 
 import lxml.etree as ET
@@ -6,11 +9,8 @@ import lxml.etree as ET
 
 resources = Path("./resources").resolve(strict=True)
 xslt = Path("./xslt").resolve(strict=True)
-czixml = str((resources / "s_3_t_1_c_3_z_5_meta.xml"
-              ).resolve(strict=True))
-# commented out now that subblock metadata is in the czi metadata export
-czisubblock = str((resources / "s_3_t_1_c_3_z_5_subblock.xml"
-                   ).resolve(strict=True))
+czixml = str((resources / "s_3_t_1_c_3_z_5_meta.xml").resolve(strict=True))
+czisubblock = str((resources / "s_3_t_1_c_3_z_5_subblock.xml").resolve(strict=True))
 template = str((xslt / "czi-to-ome.xsl").resolve(strict=True))
 output = Path("produced.ome.xml").resolve()
 
@@ -30,7 +30,6 @@ id.append(czisubblock.getroot())
 # Attempt to run transform
 try:
     ome = transform(czixml)
-    # subblock_file=ET.XSLT.strparam(czisubblock))
 
     # Write file
     with open(output, "w") as write_out:

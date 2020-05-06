@@ -2,7 +2,7 @@
 
 <xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-    <xsl:include href="instrument.xsl"/>
+    <xsl:include href="Instrument.xsl"/>
 
     <!-- /Metadata/Information/Document/UserName => /OME/Experimenter@UserName -->
     <xsl:template match="UserName">
@@ -24,4 +24,3 @@
     </xsl:template>
 
 </xsl:stylesheet>
-

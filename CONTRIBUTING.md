@@ -4,21 +4,21 @@ Contributions are welcome, and they are greatly appreciated! Every little bit
 helps, and credit will always be given.
 
 ## Get Started!
-Ready to contribute? Here's how to set up `aicsxslt` for local development.
+Ready to contribute? Here's how to set up `czi-to-ome-xslt` for local development.
 
-1. Fork the `aicsxslt` repo on GitHub.
+1. Fork the `czi-to-ome-xslt` repo on GitHub.
 
 2. Clone your fork locally:
 
     ```bash
-    git clone git@github.com:{your_name_here}/aicsxslt.git
+    git clone git@github.com:{your_name_here}/czi-to-ome-xslt.git
     ```
 
-3. Install the project in editable mode. (It is also recommended to work in a virtualenv or anaconda environment):
+3. Install `lxml`:
 
     ```bash
-    cd aicsxslt/
-    pip install -e .[dev]
+    cd czi-to-ome-xslt/
+    pip install lxml
     ```
 
 4. Create a branch for local development:
@@ -34,7 +34,7 @@ Ready to contribute? Here's how to set up `aicsxslt` for local development.
    tests, including testing other Python versions with make:
 
     ```bash
-    make build
+    python transform.py
     ```
 
 6. Commit your changes and push your branch to GitHub:
@@ -46,20 +46,3 @@ Ready to contribute? Here's how to set up `aicsxslt` for local development.
     ```
 
 7. Submit a pull request through the GitHub website.
-
-## Deploying
-
-A reminder for the maintainers on how to deploy.
-Make sure all your changes are committed.
-Then run:
-
-```bash
-$ bumpversion patch # possible: major / minor / patch
-$ git push
-$ git push --tags
-git branch -D stable
-git checkout -b stable
-git push --set-upstream origin stable -f
-```
-
-This will release a new package version on Git + GitHub and publish to PyPI.

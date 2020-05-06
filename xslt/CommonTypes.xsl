@@ -3,7 +3,7 @@
 <xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <!-- Includes -->
-    <xsl:include href="constants.xsl"/>
+    <xsl:include href="Constants.xsl"/>
 
     <!-- Name -->
     <!-- zisraw/Instrument.xsd: Undocumented -->
