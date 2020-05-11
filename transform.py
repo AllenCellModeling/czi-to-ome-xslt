@@ -38,7 +38,7 @@ try:
 
 # Catch any exception
 except Exception as e:
-    print(f"Error during transform: {e}")
+    print("Error during transform")
     print("-" * 80)
     print("Full Log:")
     for entry in transform.error_log:
