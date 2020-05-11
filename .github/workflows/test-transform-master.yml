@@ -1,6 +1,9 @@
 name: Test Transform
 
-on: push
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   test:
@@ -23,3 +26,8 @@ jobs:
     - name: Test by Applying XSLT
       run: |
         python transform.py
+    - name: Validate OME XML
+      uses: ChristophWurst/xmllint-action@v1
+      with:
+        xml-file: ./produced.ome.xml
+        xml-schema-file: ./ome/ome.xsd
