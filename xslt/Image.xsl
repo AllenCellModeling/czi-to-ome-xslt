@@ -90,7 +90,9 @@
     -->
     <xsl:template match="DimensionsForSeparateFolders">
         <xsl:attribute name="DimensionOrder">
-            <xslt:value-of select="."/>
+            <!-- Remove `-` and `;` characters from DimensionsForSeparateFolders value -->
+            <!-- Add XY to the front of the dimension order string as required by OME -->
+            <xslt:value-of select="concat('XY', translate(., '-;', ''))"/>
         </xsl:attribute>
     </xsl:template>
 
