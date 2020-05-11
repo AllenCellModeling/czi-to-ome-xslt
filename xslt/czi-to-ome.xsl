@@ -24,18 +24,20 @@
     <xsl:include href="Plate.xsl"/>
     <xsl:include href="StructuredAnnotations.xsl"/>
 
-<!--    <xsl:param name="subblock_xml" />-->
+    <!-- CZI Subblocks -->
     <xsl:variable name="subblocks" select="/ImageDocument/Subblocks" />
 
     <!-- Begin Template -->
     <xsl:template match="/">
-        <xsl:element name="OME">
-            <xsl:apply-templates select="/ImageDocument/Metadata/Information/Image/Dimensions"/>  <!-- Plate -->
+        <xsl:element name="OME" xmlns="http://www.openmicroscopy.org/Schemas/OME/2016-06">
+            <!-- Plate -->
+            <xsl:apply-templates select="/ImageDocument/Metadata/Information/Image/Dimensions"/>
             <xsl:apply-templates select="/ImageDocument/Metadata/Information"/>
-            <xsl:apply-templates select="/ImageDocument/Metadata/Information/Image/Dimensions/S/Scenes/Scene"/>  <!-- Image -->
-            <xsl:apply-templates select="/ImageDocument/Metadata/Information/Application"/>  <!-- StructuredAnnotations  -->
+            <!-- Image -->
+            <xsl:apply-templates select="/ImageDocument/Metadata/Information/Image/Dimensions/S/Scenes/Scene"/>
+            <!-- StructuredAnnotations  -->
+            <xsl:apply-templates select="/ImageDocument/Metadata/Information/Application"/>
         </xsl:element>
     </xsl:template>
-
 
 </xsl:stylesheet>
