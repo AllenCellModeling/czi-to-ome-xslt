@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:xls="http://www.w3.org/1999/XSL/Transform" xmlns:xslt="http://www.w3.org/1999/XSL/Transform">
+                xmlns:xls="http://www.w3.org/1999/XSL/Transform"
+                xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06"
+                ome:schemaLocation="http://www.openmicroscopy.org/Schemas/OME/2016-06/ome.xsd">
 
     <xsl:import href="ImagingEnvironment.xsl"/>
     <xsl:import href="ObjectiveSettings.xsl"/>
@@ -10,9 +12,9 @@
 
     <!-- /Metadata/Information/Image/AcquisitionDataAndTime => /OME/Image/@AcquisitionDate   -->
     <xsl:template match="AcquisitionDateAndTime">
-        <xsl:attribute name="AcquisitionDate">
+        <xsl:element name="AcquisitionDate">
             <xsl:value-of select="."/>
-        </xsl:attribute>
+        </xsl:element>
     </xsl:template>
 
     <!-- /Metadata/Information/Image/SizeX => /OME/Image/@SizeX -->
@@ -39,6 +41,12 @@
     <!-- /Metadata/Information/Image/SizeC => /OME/Image/@SizeC -->
     <xsl:template match="SizeC">
         <xsl:attribute name="SizeC">
+            <xsl:value-of select="."/>
+        </xsl:attribute>
+    </xsl:template>
+
+    <xsl:template match="SizeT">
+        <xsl:attribute name="SizeT">
             <xsl:value-of select="."/>
         </xsl:attribute>
     </xsl:template>
@@ -158,24 +166,25 @@
 
     <!-- /ImageDocument/Metadata/Information/Image/Dimensions/S/Scenes/Scene => /OME/Image/Image -->
     <xsl:template match="Scene">
-        <xsl:element name="Image">
+        <xsl:element name="ome:Image">
             <!-- Attributes -->
-            <xsl:attribute name="Id">
+            <xsl:attribute name="ID">
                 <xsl:text>Image:</xsl:text>
                 <xsl:value-of select="@Index"/>
             </xsl:attribute>
+            <xsl:attribute name="Name"/>
             <xsl:variable name="img" select="/ImageDocument/Metadata/Information/Image"/>
             <xsl:variable name="chs" select="/ImageDocument/Metadata/DisplaySetting/Channels"/>
-            <xsl:apply-templates select="$img/AcquisitionDateAndTime"/>
-            <xsl:apply-templates select="$img/SizeX"/>
-            <xsl:apply-templates select="$img/SizeY"/>
-            <xsl:apply-templates select="$img/SizeZ"/>
-            <xsl:apply-templates select="$img/SizeC"/>
-            <xsl:apply-templates select="/ImageDocument/Metadata/Experiment/AutoSave/DimensionsForSeparateFolders"/>    <!-- DimensionOrder -->
+<!--            <xsl:apply-templates select="$img/SizeX"/>-->
+<!--            <xsl:apply-templates select="$img/SizeY"/>-->
+<!--            <xsl:apply-templates select="$img/SizeZ"/>-->
+<!--            <xsl:apply-templates select="$img/SizeC"/>-->
+<!--            <xsl:apply-templates select="/ImageDocument/Metadata/Experiment/AutoSave/DimensionsForSeparateFolders"/>    &lt;!&ndash; DimensionOrder &ndash;&gt;-->
             <xsl:apply-templates select="$chs/Channel[1]/PixelType"/>
             <xsl:apply-templates select="$chs/Channel/BitCountRange[1]"/>
             <xsl:apply-templates select="/ImageDocument/Metadata/Scaling/Items"/>
             <!-- Elements -->
+            <xsl:apply-templates select="$img/AcquisitionDateAndTime"/>
             <xsl:apply-templates select="/ImageDocument/Metadata/Information/TimelineTracks/TimelineTrack/TimelineElements/TimelineElement/EventInformation/IncubationRecording"/>  <!-- Imaging Environment -->
             <xsl:apply-templates select="$img/ObjectiveSettings"/>  <!-- ObjectiveSettings -->
             <xsl:apply-templates select="$subblocks"> <!-- Plane -->

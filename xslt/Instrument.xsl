@@ -3,7 +3,9 @@
 ome/ome.xsd: 979 # # This means that for more details on how this section of the template was created # view line 45 of the zisraw/Instrument.xsd file and view line 979 of the ome/ome.xsd file.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-<xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06"
+                ome:schemaLocation="http://www.openmicroscopy.org/Schemas/OME/2016-06/ome.xsd">
 
     <!-- Includes -->
     <xsl:include href="CommonTypes.xsl"/>
@@ -48,7 +50,7 @@ ome/ome.xsd: 979 # # This means that for more details on how this section of the
     <!-- Manufacturer -->
     <!-- zisraw/Instrument.xsd: 11 -->
     <!-- ome/ome.xsd: 6378 -->
-    <xsl:template match="Manufacturer">
+    <xsl:template name="Manufacturer" match="Manufacturer">
         <xsl:attribute name="Manufacturer">
             <xsl:value-of select="."/>
         </xsl:attribute>
@@ -72,28 +74,37 @@ ome/ome.xsd: 979 # # This means that for more details on how this section of the
     <!-- zisraw/Instrument.xsd: 50 -->
     <!-- ome/ome.xsd: 2039 -->
     <xsl:template match="Microscope">
-        <MicroscopeBody>
+        <xsl:element name="ome:Microscope">
+<!--            <xsl:apply-templates select="@Id"/>-->
+<!--            <xsl:apply-templates select="@Name"/>-->
+<!--            <xsl:apply-templates select="Type"/>-->
 
-            <xsl:apply-templates select="@Id"/>
-            <xsl:apply-templates select="@Name"/>
-            <xsl:apply-templates select="Type"/>
-            <xsl:apply-templates select="Manufacturer"/>
-
-        </MicroscopeBody>
+            <xsl:attribute name="Manufacturer">
+                <xsl:text>Zeiss</xsl:text>
+            </xsl:attribute>
+            <xsl:attribute name="Model">
+                <xsl:value-of select="Manufacturer/Model"/>
+            </xsl:attribute>
+            <xsl:attribute name="SerialNumber">
+                <xsl:value-of select="Manufacturer/SerialNumber"/>
+            </xsl:attribute>
+            <xsl:apply-templates select="Manufacturer/LotNumber"/>
+        </xsl:element>
     </xsl:template>
 
     <!-- Instrument -->
     <!-- zisraw/Instrument.xsd: 45 -->
     <!-- ome/ome.xsd: 1235 -->
     <xsl:template match="Instrument">
-        <xsl:element name="Instrument">
+        <xsl:element name="ome:Instrument">
+            <xsl:attribute name="ID">
+                <xsl:text>Instrument:0</xsl:text>
+            </xsl:attribute>
             <xsl:apply-templates select="@Id"/>
             <xsl:apply-templates select="@Name"/>
 
             <!-- Plural pulled from ome/ome.xsd: 2042 -->
-            <Microscopes>
-                <xsl:apply-templates select="Microscopes"/>
-            </Microscopes>
+            <xsl:apply-templates select="Microscopes"/>
         </xsl:element>
     </xsl:template>
 
