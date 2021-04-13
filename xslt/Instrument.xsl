@@ -3,7 +3,7 @@
 ome/ome.xsd: 979 # # This means that for more details on how this section of the template was created # view line 45 of the zisraw/Instrument.xsd file and view line 979 of the ome/ome.xsd file.
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-<xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+<xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06"
                 ome:schemaLocation="http://www.openmicroscopy.org/Schemas/OME/2016-06/ome.xsd">
 
@@ -75,9 +75,10 @@ ome/ome.xsd: 979 # # This means that for more details on how this section of the
     <!-- ome/ome.xsd: 2039 -->
     <xsl:template match="Microscope">
         <xsl:element name="ome:Microscope">
-<!--            <xsl:apply-templates select="@Id"/>-->
-<!--            <xsl:apply-templates select="@Name"/>-->
-<!--            <xsl:apply-templates select="Type"/>-->
+            <!-- Not in OME but in BINA -->
+            <!-- <xsl:apply-templates select="@Id"/> -->
+            <!-- <xsl:apply-templates select="@Name"/> -->
+            <!-- <xsl:apply-templates select="Type"/> -->
 
             <xsl:attribute name="Manufacturer">
                 <xsl:text>Zeiss</xsl:text>
@@ -92,6 +93,52 @@ ome/ome.xsd: 979 # # This means that for more details on how this section of the
         </xsl:element>
     </xsl:template>
 
+    <xsl:template match="LightSources">
+        <xsl:for-each select="LightSource">
+            <xsl:choose>
+                <xsl:when test="LightSourceType/Laser">
+                    <xsl:element name="ome:Laser">
+                        <xsl:attribute name="ID">
+                            <xsl:value-of select="@Id"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Wavelength">
+                            <xsl:value-of select="LightSourceType/Laser/Wavelength"/>
+                        </xsl:attribute>
+                    </xsl:element>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:element name="ome:Filament">
+                        <xsl:attribute name="ID">
+                            <xsl:value-of select="@Id"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Type">
+                            <xsl:text>Other</xsl:text>
+                        </xsl:attribute>
+                    </xsl:element>
+                </xsl:otherwise>
+            </xsl:choose>
+
+        </xsl:for-each>
+    </xsl:template>
+
+<!--     <xsl:template match="">
+        <xsl:element name="Detector">
+
+        </xsl:element>
+    </xsl:template> -->
+
+    <xsl:template match="Objectives">
+        <xsl:for-each select="Objective">
+            <xsl:element name="ome:Objective">
+                <xsl:attribute name="ID">
+                    <xsl:value-of select="@Id"/>
+                </xsl:attribute>
+            </xsl:element>
+        </xsl:for-each>
+    </xsl:template>
+
+
+
     <!-- Instrument -->
     <!-- zisraw/Instrument.xsd: 45 -->
     <!-- ome/ome.xsd: 1235 -->
@@ -105,6 +152,8 @@ ome/ome.xsd: 979 # # This means that for more details on how this section of the
 
             <!-- Plural pulled from ome/ome.xsd: 2042 -->
             <xsl:apply-templates select="Microscopes"/>
+            <xsl:apply-templates select="LightSources"/>
+            <xsl:apply-templates select="Objectives"/>
         </xsl:element>
     </xsl:template>
 
