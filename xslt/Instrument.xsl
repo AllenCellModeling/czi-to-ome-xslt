@@ -121,11 +121,26 @@ ome/ome.xsd: 979 # # This means that for more details on how this section of the
         </xsl:for-each>
     </xsl:template>
 
-<!--     <xsl:template match="">
-        <xsl:element name="Detector">
-
-        </xsl:element>
-    </xsl:template> -->
+    <xsl:template match="Detectors">
+        <xsl:for-each select="Detector">
+            <xsl:element name="ome:Detector">
+                <xsl:attribute name="ID">
+                    <xsl:choose>
+                        <xsl:when test="substring(@Id, 0, 17)='Detector:Camera '">
+                            <xsl:text>Detector:</xsl:text>
+                            <xsl:value-of select="substring(@Id, 17, 1)"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="@Id"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>
+                <xsl:attribute name="Model">
+                    <xsl:value-of select="Manufacturer/Model"/>
+                </xsl:attribute>
+            </xsl:element>
+        </xsl:for-each>
+    </xsl:template>
 
     <xsl:template match="Objectives">
         <xsl:for-each select="Objective">
@@ -153,6 +168,7 @@ ome/ome.xsd: 979 # # This means that for more details on how this section of the
             <!-- Plural pulled from ome/ome.xsd: 2042 -->
             <xsl:apply-templates select="Microscopes"/>
             <xsl:apply-templates select="LightSources"/>
+            <xsl:apply-templates select="Detectors"/>
             <xsl:apply-templates select="Objectives"/>
         </xsl:element>
     </xsl:template>
