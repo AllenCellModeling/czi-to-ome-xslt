@@ -16,10 +16,8 @@
 
 <xsl:stylesheet version="1.1"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06"
-                ome:schemaLocation="http://www.openmicroscopy.org/Schemas/OME/2016-06/ome.xsd"
-                exclude-result-prefixes="xsl xs">
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <!-- Output format -->
     <xsl:output method="xml" version="1.0" encoding="UTF-8"/>
@@ -32,13 +30,14 @@
 
     <!-- CZI Subblocks -->
     <xsl:variable name="subblocks" select="/ImageDocument/Subblocks" />
-    <xsl:variable name="schema_name" select="'http://www.openmicroscopy.org/Schemas/OME/2016-06'" /> 
+    <xsl:variable name="schema_name" select="'http://www.openmicroscopy.org/Schemas/OME/2016-06'" />
     <xsl:variable name="schema_value" select="'http://www.openmicroscopy.org/Schemas/OME/2016-06/ome.xsd'" />
 
 
     <!-- Begin Template -->
     <xsl:template match="/">
         <xsl:element name="ome:OME">
+            <xsl:attribute name="xsi:schemaLocation">http://www.openmicroscopy.org/Schemas/OME/2016-06 http://www.openmicroscopy.org/Schemas/OME/2016-06/ome.xsd</xsl:attribute>
             <!-- Plate -->
             <xsl:apply-templates select="/ImageDocument/Metadata/Information/Image/Dimensions"/>
             <xsl:apply-templates select="/ImageDocument/Metadata/Information"/>

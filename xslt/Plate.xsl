@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06"
-                ome:schemaLocation="http://www.openmicroscopy.org/Schemas/OME/2016-06/ome.xsd">
+                xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06">
 
 
     <!--  /Metadata/Experiment/ExperimentBlocks/AcquisitionBlock/SubDimensionSetups/RegionsSetup/SampleHolder/Template/ShapeDistanceX => /OME/Plate/WellOriginX -->

@@ -4,8 +4,7 @@ ome/ome.xsd: 979 # # This means that for more details on how this section of the
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
 <xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06"
-                ome:schemaLocation="http://www.openmicroscopy.org/Schemas/OME/2016-06/ome.xsd">
+                xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06">
 
     <!-- Includes -->
     <xsl:include href="CommonTypes.xsl"/>
