@@ -4,6 +4,7 @@
 from pathlib import Path
 
 import lxml.etree as ET
+from xmlschema import XMLSchema
 
 ###############################################################################
 
@@ -13,7 +14,7 @@ czixml = str((resources / "s_3_t_1_c_3_z_5_meta.xml").resolve(strict=True))
 czisubblock = str((resources / "s_3_t_1_c_3_z_5_subblock.xml").resolve(strict=True))
 template = str((xslt / "czi-to-ome.xsl").resolve(strict=True))
 output = Path("produced.ome.xml").resolve()
-ome_schema = str(Path("ome/ome.xsd").resolve(strict=True))
+ome_schema = XMLSchema("ome/ome.xsd")
 
 ###############################################################################
 
@@ -43,21 +44,8 @@ except Exception as e:
     print("Full Log:")
     for entry in transform.error_log:
         print((f"{entry.filename}: {entry.line}, "
-              f"{entry.column}> {entry.message}>"))
+               f"{entry.column}> {entry.message}>"))
     raise e
 
-
-# Validate against schema
-try:
-    ome_schema = ET.parse(ome_schema)
-    ome_schema = ET.XMLSchema(ome_schema)
-    ome_schema.assertValid(ome)
-    print("OME XML valid, schema validation ok.")
-
-except ET.DocumentInvalid as e:
-    print("Schema validation error:")
-    raise e
-
-except Exception as e:
-    print("Unknown error:")
-    raise e
+ome_schema.validate(ome)
+print("OME XML valid, schema validation ok.")

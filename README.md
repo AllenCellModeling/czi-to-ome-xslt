@@ -34,7 +34,7 @@ _a thirty minute video with more details on nested for-each, etc_
 To test template changes run:
 
 ```bash
-pip install lxml
+pip install lxml xmlschema
 python transform.py
 ```
 

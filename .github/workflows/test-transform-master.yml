@@ -22,7 +22,7 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install lxml
+        pip install lxml xmlschema
     - name: Test and Validate XSLT
       run: |
         python transform.py
