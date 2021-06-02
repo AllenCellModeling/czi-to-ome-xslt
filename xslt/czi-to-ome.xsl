@@ -45,7 +45,6 @@
             <xsl:apply-templates select="/ImageDocument/Metadata/Information/Image/Dimensions/S/Scenes/Scene"/>
             <!-- StructuredAnnotations  -->
             <xsl:apply-templates select="/ImageDocument/Metadata/Information/Application"/>
-            <!--        </OME>-->
         </xsl:element>
     </xsl:template>
 

@@ -47,7 +47,6 @@
     <xsl:template match="Intensity">
         <xsl:variable name="inten" select="substring( ., 0, string-length(.)-1) div 100.0"/>
         <xsl:if test="$inten &gt; 0.29">
-<!--        <xsl:if test="not(. = 'n/a')">-->
             <xsl:element name="ome:LightSourceSettings">
                 <xsl:attribute name="ID">
                     <xsl:text>LightSource:</xsl:text>
