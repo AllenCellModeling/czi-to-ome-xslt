@@ -3,13 +3,6 @@
 <xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06">
 
-    <!-- /Metadata/DisplaySetting/Channels/Channel/DyeName => /OME/Image/Channel@Fluorophore -->
-<!--    <xsl:template match="DyeName">-->
-<!--       <xsl:attribute name="Fluorophore">-->
-<!--           <xsl:value-of select="."/>-->
-<!--       </xsl:attribute>-->
-<!--    </xsl:template>-->
-
     <!-- /Metadata/DisplaySetting/Channels/Channel/IlluminationType => /OME/Image/Channel/IlluminationType -->
     <xsl:template match="IlluminationType">
         <xsl:attribute name="IlluminationType">
@@ -94,6 +87,7 @@
 
     <!-- /Metadata/DisplaySetting/Channels/Channel => /OME/Image/Channel -->
     <!-- /Metadata/DisplaySetting/Channels/Channel/DyeName => /OME/Image/Channel@Name -->
+    <!-- /Metadata/DisplaySetting/Channels/Channel/DyeName => /OME/Image/Channel@Fluor (if IlluminationType = 'Fluorescence') -->
     <!-- /ImageDocument/Metadata/Information/Image/Dimensions/Channels/Channel/ExcitationWavelength => /Ome/Image/Channel@ExcitationWavelength  -->
     <!-- /ImageDocument/Metadata/Information/Image/Dimensions/Channels/Channel/EmissionWavelength => /Ome/Image/Channel@EmissionWavelength  -->
     <xsl:template match="Channel">
@@ -114,9 +108,11 @@
             <xsl:apply-templates select="IlluminationType"/>
             <xsl:apply-templates select="$info_channel/ExcitationWavelength"/>
             <xsl:apply-templates select="$info_channel/EmissionWavelength"/>
-<!--            <xsl:attribute name="Fluorophore">-->
-<!--                <xsl:value-of select="DyeName"/>-->
-<!--            </xsl:attribute>-->
+            <xsl:if test="IlluminationType = 'Fluorescence'">
+                <xsl:attribute name="Fluor">
+                    <xsl:value-of select="DyeName"/>
+                </xsl:attribute>
+            </xsl:if>
 
             <xsl:apply-templates select="$info_channel/LightSourcesSettings/LightSourceSettings/Intensity"/>
             <xsl:apply-templates select="$info_channel/DetectorSettings"/>
