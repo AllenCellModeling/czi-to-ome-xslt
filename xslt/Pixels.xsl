@@ -65,6 +65,44 @@
         </xsl:attribute>
     </xsl:template>
 
+    <!-- /Metadata/Scaling/Items/Distance[@Id=X]/Value => /OME/Image/Pixels/@PhysicalSizeX -->
+    <xsl:template match="Distance">
+        <xsl:param name="dim"/>
+        <xsl:param name="unit"/>
+        <xsl:attribute name="PhysicalSize{$dim}">
+            <xsl:choose>
+                <xsl:when test="(($unit = 'µm') and (Value &lt; 1E-5)) ">
+                    <xsl:value-of select="number(Value) * 1000000"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="Value"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:attribute>
+        <xsl:if test="$unit != ''">
+            <xsl:attribute name="PhysicalSize{$dim}Unit">
+                <xsl:value-of select="$unit"/>
+            </xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="Items">
+        <xsl:variable name="default_size_unit" select="/ImageDocument/Metadata/Scaling/Items/Distance/DefaultUnitFormat"/>
+        <xsl:apply-templates select="Distance[@Id='X']">
+            <xsl:with-param name="dim">X</xsl:with-param>
+            <xsl:with-param name="unit" select="$default_size_unit"/>
+        </xsl:apply-templates>
+        <xsl:apply-templates select="Distance[@Id='Y']">
+            <xsl:with-param name="dim">Y</xsl:with-param>
+            <xsl:with-param name="unit" select="$default_size_unit"/>
+        </xsl:apply-templates>
+        <xsl:apply-templates select="Distance[@Id='Z']">
+            <xsl:with-param name="dim">Z</xsl:with-param>
+            <xsl:with-param name="unit" select="$default_size_unit"/>
+        </xsl:apply-templates>
+    </xsl:template>
+
+
 
 
     <xsl:template name="Sizes">
@@ -80,8 +118,8 @@
         <xsl:call-template name="SizeT">
             <xsl:with-param name="simg" select="$image"/>
         </xsl:call-template>
+        <xsl:apply-templates select="/ImageDocument/Metadata/Scaling/Items"/>
     </xsl:template>
-
 
 
     <!-- PixelType -->
