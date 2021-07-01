@@ -185,6 +185,9 @@
             <xsl:attribute name="DimensionOrder">
                 <xsl:text>XYZCT</xsl:text> <!--  Hardcoded for AICSImageIO  -->
             </xsl:attribute>
+            <xsl:attribute name="SignificantBits">
+                <xsl:value-of select="ComponentBitCount"/>
+            </xsl:attribute>
             <xsl:apply-templates select="PixelType"/>
             <xsl:call-template name="Sizes"> <!-- SizeX SizeY .... SizeT -->
                 <xsl:with-param name="image" select="."/>
@@ -202,7 +205,5 @@
             </xsl:apply-templates>
         </xsl:element>
     </xsl:template>
-
-<!--    <ns:Pixels ID="string" DimensionOrder="XYCTZ" Type="int32" SignificantBits="3" Interleaved="false" BigEndian="false" SizeX="3" SizeY="3" SizeZ="3" SizeC="3" SizeT="3" PhysicalSizeX="1.5E2" PhysicalSizeXUnit="µm" PhysicalSizeY="1.5E2" PhysicalSizeYUnit="µm" PhysicalSizeZ="1.5E2" PhysicalSizeZUnit="µm" TimeIncrement="1.5E2" TimeIncrementUnit="s"> -->
 
 </xsl:stylesheet>
