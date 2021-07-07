@@ -4,7 +4,7 @@
 from pathlib import Path
 
 import lxml.etree as ET
-from xmlschema import XMLSchema
+from ome_types import from_xml
 
 ###############################################################################
 
@@ -14,7 +14,6 @@ czixml = str((resources / "s_3_t_1_c_3_z_5_meta.xml").resolve(strict=True))
 czisubblock = str((resources / "s_3_t_1_c_3_z_5_subblock.xml").resolve(strict=True))
 template = str((xslt / "czi-to-ome.xsl").resolve(strict=True))
 output = Path("produced.ome.xml").resolve()
-ome_schema = XMLSchema("ome/ome.xsd")
 
 ###############################################################################
 
@@ -47,5 +46,5 @@ except Exception as e:
                f"{entry.column}> {entry.message}>"))
     raise e
 
-ome_schema.validate(ome)
+from_xml(str(ome))
 print("OME XML valid, schema validation ok.")
