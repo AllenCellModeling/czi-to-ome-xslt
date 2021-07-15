@@ -22,7 +22,9 @@
                 <xsl:text>Image:</xsl:text>
                 <xsl:value-of select="@Index"/>
             </xsl:attribute>
-            <xsl:attribute name="Name"/>
+            <xsl:attribute name="Name">
+                <xsl:value-of select="@Name"/>
+            </xsl:attribute>
             <xsl:variable name="img" select="/ImageDocument/Metadata/Information/Image"/>
             <xsl:variable name="chs" select="/ImageDocument/Metadata/DisplaySetting/Channels"/>
             <!-- Elements -->
