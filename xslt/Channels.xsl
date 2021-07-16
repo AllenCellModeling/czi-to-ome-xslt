@@ -103,7 +103,7 @@
                 </xsl:attribute>
             </xsl:if>
 
-            <xsl:apply-templates select="$info_channel/LightSourcesSettings/LightSourceSettings"/>
+            <!--<xsl:apply-templates select="$info_channel/LightSourcesSettings/LightSourceSettings"/>-->
             <xsl:apply-templates select="$info_channel/DetectorSettings"/>
 
         </xsl:element>
