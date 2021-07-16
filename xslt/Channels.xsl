@@ -36,28 +36,17 @@
         </xsl:attribute>
     </xsl:template>
 
+    <!-- TODO: The OME spec only allows for one light source per channel,
+    but CZIs can have multiple. We have not yet determined how to handle
+    this. -->
+<!--    <xsl:template match="LightSourceSettings">-->
+<!--        <xsl:element name="ome:LightSourceSettings">-->
+<!--            <xsl:attribute name="ID">-->
+<!--                <xsl:value-of select="LightSource/@Id"/>-->
+<!--            </xsl:attribute>-->
+<!--        </xsl:element>-->
+<!--    </xsl:template>-->
 
-    <xsl:template match="Intensity">
-        <xsl:variable name="inten" select="substring( ., 0, string-length(.)-1) div 100.0"/>
-        <xsl:if test="$inten &gt; 0.29">
-            <xsl:element name="ome:LightSourceSettings">
-                <xsl:attribute name="ID">
-                    <xsl:text>LightSource:</xsl:text>
-                    <xsl:value-of select="position()"/>
-                </xsl:attribute>
-                <xsl:attribute name="Attenuation">
-                    <xsl:choose>
-                        <xsl:when test="contains(.,'%')">
-                            <xsl:value-of select="substring( ., 0, string-length(.)-1) div 100.0"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="."/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:attribute>
-            </xsl:element>
-        </xsl:if>
-    </xsl:template>
 
     <xsl:template match="DetectorSettings">
         <xsl:element name="ome:DetectorSettings">
@@ -114,7 +103,7 @@
                 </xsl:attribute>
             </xsl:if>
 
-            <xsl:apply-templates select="$info_channel/LightSourcesSettings/LightSourceSettings/Intensity"/>
+            <xsl:apply-templates select="$info_channel/LightSourcesSettings/LightSourceSettings"/>
             <xsl:apply-templates select="$info_channel/DetectorSettings"/>
 
         </xsl:element>
