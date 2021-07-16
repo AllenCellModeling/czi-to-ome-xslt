@@ -14,7 +14,11 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 -->
 
-<xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.1"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
     <!-- Output format -->
     <xsl:output method="xml" version="1.0" encoding="UTF-8"/>
 
@@ -24,18 +28,24 @@
     <xsl:include href="Plate.xsl"/>
     <xsl:include href="StructuredAnnotations.xsl"/>
 
-<!--    <xsl:param name="subblock_xml" />-->
+    <!-- CZI Subblocks -->
     <xsl:variable name="subblocks" select="/ImageDocument/Subblocks" />
+    <xsl:variable name="schema_name" select="'http://www.openmicroscopy.org/Schemas/OME/2016-06'" />
+    <xsl:variable name="schema_value" select="'http://www.openmicroscopy.org/Schemas/OME/2016-06/ome.xsd'" />
+
 
     <!-- Begin Template -->
     <xsl:template match="/">
-        <xsl:element name="OME">
-            <xsl:apply-templates select="/ImageDocument/Metadata/Information/Image/Dimensions"/>  <!-- Plate -->
+        <xsl:element name="ome:OME">
+            <xsl:attribute name="xsi:schemaLocation">http://www.openmicroscopy.org/Schemas/OME/2016-06 http://www.openmicroscopy.org/Schemas/OME/2016-06/ome.xsd</xsl:attribute>
+            <!-- Plate -->
+            <xsl:apply-templates select="/ImageDocument/Metadata/Information/Image/Dimensions"/>
             <xsl:apply-templates select="/ImageDocument/Metadata/Information"/>
-            <xsl:apply-templates select="/ImageDocument/Metadata/Information/Image/Dimensions/S/Scenes/Scene"/>  <!-- Image -->
-            <xsl:apply-templates select="/ImageDocument/Metadata/Information/Application"/>  <!-- StructuredAnnotations  -->
+            <!-- Image -->
+            <xsl:apply-templates select="/ImageDocument/Metadata/Information/Image/Dimensions/S/Scenes/Scene"/>
+            <!-- StructuredAnnotations  -->
+            <xsl:apply-templates select="/ImageDocument/Metadata/Information/Application"/>
         </xsl:element>
     </xsl:template>
-
 
 </xsl:stylesheet>

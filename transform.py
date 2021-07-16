@@ -4,6 +4,7 @@
 from pathlib import Path
 
 import lxml.etree as ET
+from ome_types import from_xml
 
 ###############################################################################
 
@@ -37,9 +38,13 @@ try:
 
 # Catch any exception
 except Exception as e:
-    print(f"Error: {e}")
+    print("Error during transform")
     print("-" * 80)
     print("Full Log:")
     for entry in transform.error_log:
         print((f"{entry.filename}: {entry.line}, "
-              f"{entry.column}> {entry.message}>"))
+               f"{entry.column}> {entry.message}>"))
+    raise e
+
+from_xml(str(ome))
+print("OME XML valid, schema validation ok.")

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06">
 
 
     <!--  /Metadata/Experiment/ExperimentBlocks/AcquisitionBlock/SubDimensionSetups/RegionsSetup/SampleHolder/Template/ShapeDistanceX => /OME/Plate/WellOriginX -->
@@ -8,7 +9,10 @@
     <!-- /Metadata/Information/Image/Dimensions/T/StartTime => /OME/Plate/PlateAcquisition@StartTime -->
 
     <xsl:template match="StartTime">
-        <xsl:element name="PlateAcquisition">
+        <xsl:element name="ome:PlateAcquisition">
+            <xsl:attribute name="ID">
+                <xsl:value-of select="concat('PlateAcquisition:', position())"/>
+            </xsl:attribute>
             <xsl:attribute name="StartTime">
                 <xsl:value-of select="."/>
             </xsl:attribute>
@@ -46,7 +50,10 @@
 
     <xsl:template match="Template">
         <xsl:param name="dimensions"/>
-        <xsl:element name="Plate">
+        <xsl:element name="ome:Plate">
+            <xsl:attribute name="ID">
+                <xsl:value-of select="concat('Plate:', position())"/>
+            </xsl:attribute>
             <xsl:apply-templates select="ShapeDistanceX"/>
             <xsl:apply-templates select="ShapeDistanceY"/>
             <xsl:apply-templates select="$dimensions/S/Scenes/Scene/Shape/RowIndex"/>
