@@ -124,15 +124,8 @@ ome/ome.xsd: 979 # # This means that for more details on how this section of the
         <xsl:for-each select="Detector">
             <xsl:element name="ome:Detector">
                 <xsl:attribute name="ID">
-                    <xsl:choose>
-                        <xsl:when test="substring(@Id, 0, 17)='Detector:Camera '">
-                            <xsl:text>Detector:</xsl:text>
-                            <xsl:value-of select="substring(@Id, 17, 1)"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="@Id"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                    <!-- Convert any whitespace to '_' -->
+                    <xsl:value-of select="translate(normalize-space(@Id), ' ', '_')"/>
                 </xsl:attribute>
                 <xsl:attribute name="Model">
                     <xsl:value-of select="Manufacturer/Model"/>

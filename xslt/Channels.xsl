@@ -51,15 +51,8 @@
     <xsl:template match="DetectorSettings">
         <xsl:element name="ome:DetectorSettings">
             <xsl:attribute name="ID">
-                <xsl:choose>
-                    <xsl:when test="substring(Detector/@Id, 0, 17)='Detector:Camera '">
-                        <xsl:text>Detector:</xsl:text>
-                        <xsl:value-of select="substring(Detector/@Id, 17, 1)"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="Detector/@Id"/>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <!-- Convert any whitespace to '_' -->
+                <xsl:value-of select="translate(normalize-space(Detector/@Id), ' ', '_')"/>
             </xsl:attribute>
             <xsl:attribute name="Binning">
                 <xsl:choose>
