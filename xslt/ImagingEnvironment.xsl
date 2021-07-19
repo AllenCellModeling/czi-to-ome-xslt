@@ -20,7 +20,7 @@
         </xsl:attribute>
     </xsl:template>
 
-    <!-- /Metadata/Information/TimelineTracks/TimelineTrack/TimelineElements/TimelineElement/EventInformation/IncubationRecording/Components/MTBIncubationCO2Channel/Value
+    <!-- /Metadata/Information/TimelineTracks/TimelineTrack/TimelineElements/TimelineElement/EventInformation/IncubationRecording/Components/MTBIncubationTemperatureChannel4/Value
         =>
      /OME/Image/ImagingEnvironment@UnitTemperature
     -->
@@ -38,7 +38,7 @@
      /OME/Image/ImagingEnvironment
     -->
     <xsl:template match="IncubationRecording">
-        <xsl:if test="Components/MTBIncubationCO2Channel">
+        <xsl:if test="Components/MTBIncubationCO2Channel/IsEnabled = 'true'">
             <xsl:element name="ome:ImagingEnvironment">
                 <xsl:apply-templates select="Components/MTBIncubationCO2Channel"/>
                 <xsl:apply-templates select="Components/MTBIncubationTemperatureChannel4"/>
