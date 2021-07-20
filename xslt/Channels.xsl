@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-
-    <!-- /Metadata/DisplaySetting/Channels/Channel/DyeName => /OME/Image/Channel@Fluorophore -->
-    <xsl:template match="DyeName">
-       <xsl:attribute name="Fluorophore">
-           <xsl:value-of select="."/>
-       </xsl:attribute>
-    </xsl:template>
+<xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06">
 
     <!-- /Metadata/DisplaySetting/Channels/Channel/IlluminationType => /OME/Image/Channel/IlluminationType -->
     <xsl:template match="IlluminationType">
         <xsl:attribute name="IlluminationType">
-            <xsl:value-of select="."/>
+            <xsl:choose>
+                <xsl:when test=".='Fluorescence'">
+                    <xsl:text>Epifluorescence</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="."/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:attribute>
     </xsl:template>
 
@@ -35,26 +36,53 @@
         </xsl:attribute>
     </xsl:template>
 
+    <!-- TODO: The OME spec only allows for one light source per channel,
+    but CZIs can have multiple. We have not yet determined how to handle
+    this. -->
+<!--    <xsl:template match="LightSourceSettings">-->
+<!--        <xsl:element name="ome:LightSourceSettings">-->
+<!--            <xsl:attribute name="ID">-->
+<!--                <xsl:value-of select="LightSource/@Id"/>-->
+<!--            </xsl:attribute>-->
+<!--        </xsl:element>-->
+<!--    </xsl:template>-->
 
-    <xsl:template match="Intensity">
-        <xsl:if test="not(. = 'n/a')">
-            <xsl:element name="LightSourceSettings">
-                <xsl:attribute name="Attenuation">
-                    <xsl:value-of select="."/>
-                </xsl:attribute>
-            </xsl:element>
-        </xsl:if>
+
+    <xsl:template match="DetectorSettings">
+        <xsl:element name="ome:DetectorSettings">
+            <xsl:attribute name="ID">
+                <!-- Convert any whitespace to '_' -->
+                <xsl:value-of select="translate(normalize-space(Detector/@Id), ' ', '_')"/>
+            </xsl:attribute>
+            <xsl:attribute name="Binning">
+                <xsl:choose>
+                    <!-- OME only supports the following values for binning -->
+                    <xsl:when test="Binning = '1,1' or Binning = '2,2' or Binning = '4,4' or Binning = '8,8'">
+                        <!-- Binning values appear as "2,2" in CZI, but should be formatted as "2x2" in OME -->
+                        <xsl:value-of select="translate(Binning, ',', 'x')"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>Other</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+        </xsl:element>
     </xsl:template>
-
-
 
     <!-- /Metadata/DisplaySetting/Channels/Channel => /OME/Image/Channel -->
     <!-- /Metadata/DisplaySetting/Channels/Channel/DyeName => /OME/Image/Channel@Name -->
+    <!-- /Metadata/DisplaySetting/Channels/Channel/DyeName => /OME/Image/Channel@Fluor (if IlluminationType = 'Fluorescence') -->
     <!-- /ImageDocument/Metadata/Information/Image/Dimensions/Channels/Channel/ExcitationWavelength => /Ome/Image/Channel@ExcitationWavelength  -->
     <!-- /ImageDocument/Metadata/Information/Image/Dimensions/Channels/Channel/EmissionWavelength => /Ome/Image/Channel@EmissionWavelength  -->
     <xsl:template match="Channel">
         <xsl:param name="info_channel"/>
-        <xsl:element name="Channel">
+        <xsl:param name="idx"/>
+        <xsl:element name="ome:Channel">
+            <xsl:attribute name="ID">
+                <xsl:value-of select="$info_channel/@Id"/>
+                <xsl:text>-</xsl:text>
+                <xsl:value-of select="$idx"/>
+            </xsl:attribute>
             <xsl:attribute name="Name">
                 <xsl:value-of select="@Name"/>
             </xsl:attribute>
@@ -62,24 +90,29 @@
                 <xsl:value-of select="$info_channel/AcquisitionMode"/>
             </xsl:attribute>
             <xsl:apply-templates select="IlluminationType"/>
-                <xsl:apply-templates select="$info_channel/ExcitationWavelength"/>
-                <xsl:apply-templates select="$info_channel/EmissionWavelength"/>
-            <xsl:attribute name="Fluorophore">
-                <xsl:value-of select="DyeName"/>
-            </xsl:attribute>
+            <xsl:apply-templates select="$info_channel/ExcitationWavelength"/>
+            <xsl:apply-templates select="$info_channel/EmissionWavelength"/>
+            <xsl:if test="IlluminationType = 'Fluorescence'">
+                <xsl:attribute name="Fluor">
+                    <xsl:value-of select="DyeName"/>
+                </xsl:attribute>
+            </xsl:if>
 
-            <xsl:apply-templates select="$info_channel/LightSourcesSettings/LightSourceSettings/Intensity"/>
+            <!--<xsl:apply-templates select="$info_channel/LightSourcesSettings/LightSourceSettings"/>-->
+            <xsl:apply-templates select="$info_channel/DetectorSettings"/>
 
         </xsl:element>
     </xsl:template>
 
     <xsl:template match="Channels">
+        <xsl:param name="idx"/>
         <xsl:for-each select="Channel">
             <xsl:variable name="channel" select="."/>
             <xsl:for-each select="/ImageDocument/Metadata/Information/Image/Dimensions/Channels/Channel">
                 <xsl:if test="$channel/@Id = ./@Id">
                     <xsl:apply-templates select="$channel">
                         <xsl:with-param name="info_channel" select="."/>
+                        <xsl:with-param name="idx" select="$idx"/>
                     </xsl:apply-templates>
                 </xsl:if>
             </xsl:for-each>

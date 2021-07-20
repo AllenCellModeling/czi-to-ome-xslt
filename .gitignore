@@ -110,3 +110,6 @@ ENV/
 
 # Project specific
 produced.ome.xml
+
+# IntelliJ
+.idea/
