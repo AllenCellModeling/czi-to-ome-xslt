@@ -56,13 +56,15 @@
             </xsl:attribute>
             <xsl:attribute name="Binning">
                 <xsl:choose>
-                    <xsl:when test="Binning='other'">
-                        <xsl:value-of select="Binning"/>
+                    <!-- OME only supports the following values for binning -->
+                    <xsl:when test="Binning = '1,1' or Binning = '2,2' or Binning = '4,4' or Binning = '8,8'">
+                        <!-- Binning values appear as "2,2" in CZI, but should be formatted as "2x2" in OME -->
+                        <xsl:value-of select="translate(Binning, ',', 'x')"/>
                     </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>Other</xsl:text>
+                    </xsl:otherwise>
                 </xsl:choose>
-                <xsl:value-of select="substring(Binning, 0, 2)"/>
-                <xsl:text>x</xsl:text>
-                <xsl:value-of select="substring(Binning, 0, 2)"/>
             </xsl:attribute>
         </xsl:element>
     </xsl:template>
