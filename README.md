@@ -1,47 +1,77 @@
 # czi-to-ome-xslt
 
-[![Build Status](https://github.com/AllenCellModeling/czi-to-ome-xslt/workflows/Test%20Transform/badge.svg)](https://github.com/AllenCellModeling/czi-to-ome-xslt/actions)
+[![Build Status](https://github.com/AllenCellModeling/czi-to-ome-xslt/workflows/Test%20Main/badge.svg)](https://github.com/AllenCellModeling/czi-to-ome-xslt/actions/test-main.yml)
 
-This repo contains our XSLT sheets to go from CZI to OME metadata.
-The intent is to enable use of this as a git submodule and then apply the XSL transforms
-within their project using their language of choice. We also hope that users will
-extend and improve the XSL transforms with their own contributions.
+XSLT files to convert from CZI (Zeiss) microscopy image metadata
+to OME image metadata schema.
 
 ---
 
-# CZI to OME-TIFF Metadata Mapping
+## Usage
 
-Using [XSLT](https://en.wikipedia.org/wiki/XSLT) to map CZI metadata schemas to
-OME-TIFF metadata specifications.
-
-The resulting OME metadata conforms to the OME extension laid out by the
-[4D Nucleome Initiative](https://github.com/WU-BIMAC/MicroscopyMetadata4DNGuidelines).
-
-## Basics
-In short: XSLT is used to transform XML to other formats, primarily, other XML formats
-or HTML.
-
-* [Simple XSLT Tutorial](https://www.youtube.com/watch?v=BujLy71JY1k)
-_an eight minute video detailing how to convert xml to html_
-* [XSLT Reference](https://developer.mozilla.org/en-US/docs/Web/XSLT)
-_mozilla reference for all possible templating elements_
-* [XSLT Deep Reference](https://developer.mozilla.org/en-US/docs/Web/XSLT/Transforming_XML_with_XSLT)
-_mozilla reference for all possible attributes, elements, and functions_
-* [A Bit More In Depth XSLT Tutorial](https://www.youtube.com/watch?v=Rn1bvTYYsCY)
-_a thirty minute video with more details on nested for-each, etc_
-
-## Testing
-To test template changes run:
+If you want to use this work in a standalone fashion we recommend submoduling
+this repository into your own repo:
 
 ```bash
-pip install lxml ome-types
-python transform.py
+git submodule add https://github.com/AllenCellModeling/czi-to-ome-xslt.git
 ```
 
----
+You can then run the transformation in any language of your choosing.
 
-## Development
-See [CONTRIBUTING.md](CONTRIBUTING.md) for information related to developing the code.
+### Python
+
+_**Requires `lxml`** (`pip install lxml`)_
+
+```python
+import lxml.etree as ET
+
+# Parse template and generate transform function
+template = ET.parse("czi-to-ome-xslt/xslt/czi-to-ome.xsl")
+transformer = ET.XSLT(template)
+
+# Parse CZI XML
+czixml = ET.parse("your-czi-metadata.xml")
+
+# Transform
+omexml = transformer(czixml)
+
+# Write to file
+with open("your-converted-czi-metadata.ome.xml", "w") as open_f:
+    open_f.write(str(omexml))
+```
+
+This work has already been incorporated into
+[`aicsimageio`](https://github.com/AllenCellModeling/aicsimageio).
+
+```python
+from aicsimageio import AICSImage
+
+img = AICSImage("your-file.czi")
+img.save("your-converted-file.ome.tiff")
+```
+
+## Comparison with Bioformats
+
+For full metadata comparison between XSLT and Bioformats, see
+[comparison](./docs/comparison).
+
+
+## Contributing
+
+Contributions are welcome, and they are greatly appreciated! Every little bit
+helps, and credit will always be given.
+
+Please feel free to contribute documentation, new additions to the XSLT itself,
+and/or tests!
+
+**We especially encourage contributing examples of using this work in languages other
+than Python**.
+
+For instructions on how to contribute new additions to the XSLT and/or tests, see
+[CONTRIBUTING](./docs/CONTRIBUTING.md).
+
+
+---
 
 
 ***Free software: BSD license***
