@@ -14,11 +14,10 @@ Ready to contribute? Here's how to set up `czi-to-ome-xslt` for local developmen
     git clone git@github.com:{your_name_here}/czi-to-ome-xslt.git
     ```
 
-3. Install `lxml`:
+3. Install dependencies:
 
     ```bash
-    cd czi-to-ome-xslt/
-    pip install lxml
+    pip install -r tests/python-requirements.txt
     ```
 
 4. Create a branch for local development:
@@ -30,11 +29,10 @@ Ready to contribute? Here's how to set up `czi-to-ome-xslt` for local developmen
     Ex: feature/read-tiff-files or bugfix/handle-file-not-found<br>
     Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass linting and
-   tests, including testing other Python versions with make:
+5. When you're done making changes, check that your changes pass tests:
 
     ```bash
-    python transform.py
+    pytest tests/test_transform.py
     ```
 
 6. Commit your changes and push your branch to GitHub:
