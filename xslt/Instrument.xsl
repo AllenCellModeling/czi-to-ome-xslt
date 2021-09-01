@@ -137,9 +137,69 @@ ome/ome.xsd: 979 # # This means that for more details on how this section of the
     <xsl:template match="Objectives">
         <xsl:for-each select="Objective">
             <xsl:element name="ome:Objective">
-                <xsl:attribute name="ID">
-                    <xsl:value-of select="@Id"/>
-                </xsl:attribute>
+                <xsl:if test="Manufacturer/Manufacturer">
+                    <xsl:attribute name="Manufacturer">
+                        <xsl:value-of select="Manufacturer/Manufacturer"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="Manufacturer/Model">
+                    <xsl:attribute name="Model">
+                        <xsl:value-of select="Manufacturer/Model"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="Manufacturer/SerialNumber">
+                    <xsl:attribute name="SerialNumber">
+                        <xsl:value-of select="Manufacturer/SerialNumber"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="Manufacturer/LotNumber">
+                    <xsl:attribute name="LotNumber">
+                        <xsl:value-of select="Manufacturer/LotNumber"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="@Id">
+                    <xsl:attribute name="ID">
+                        <xsl:value-of select="@Id"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="Correction">
+                    <xsl:attribute name="Correction">
+                        <xsl:value-of select="Correction"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="Immersion">
+                    <xsl:attribute name="Immersion">
+                        <xsl:value-of select="Immersion"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="LensNA">
+                    <xsl:attribute name="LensNA">
+                        <xsl:value-of select="LensNA"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="NominalMagnification">
+                    <xsl:attribute name="NominalMagnification">
+                        <xsl:value-of select="NominalMagnification"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="CalibratedMagnification">
+                    <xsl:attribute name="CalibratedMagnification">
+                        <xsl:value-of select="CalibratedMagnification"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="WorkingDistance">
+                    <xsl:attribute name="WorkingDistance">
+                        <xsl:value-of select="WorkingDistance"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="WorkingDistanceUnit">
+                        <xsl:text>µm</xsl:text>
+                    </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="Iris">
+                    <xsl:attribute name="Iris">
+                        <xsl:value-of select="Iris"/>
+                    </xsl:attribute>
+                </xsl:if>
             </xsl:element>
         </xsl:for-each>
     </xsl:template>
