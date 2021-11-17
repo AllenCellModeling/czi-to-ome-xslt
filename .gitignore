@@ -111,5 +111,6 @@ ENV/
 # Project specific
 produced.ome.xml
 
-# IntelliJ
+# IDEs
 .idea/
+.vscode/
