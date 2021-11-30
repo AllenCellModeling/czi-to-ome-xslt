@@ -15,9 +15,9 @@
 -->
 
 <xsl:stylesheet version="1.1"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <!-- Output format -->
     <xsl:output method="xml" version="1.0" encoding="UTF-8"/>
@@ -42,7 +42,16 @@
             <xsl:apply-templates select="/ImageDocument/Metadata/Information/Image/Dimensions"/>
             <xsl:apply-templates select="/ImageDocument/Metadata/Information"/>
             <!-- Image -->
-            <xsl:apply-templates select="/ImageDocument/Metadata/Information/Image/Dimensions/S/Scenes/Scene"/>
+            <xsl:variable name="scene" select="/ImageDocument/Metadata/Information/Image/Dimensions/S/Scenes/Scene"/>
+            <xsl:choose>
+                <!-- Apply different templates far multi scene vs. single scene images -->
+                <xsl:when test="$scene">
+                    <xsl:apply-templates select="$scene"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="single_scene_image"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <!-- StructuredAnnotations  -->
             <xsl:apply-templates select="/ImageDocument/Metadata/Information/Application"/>
         </xsl:element>

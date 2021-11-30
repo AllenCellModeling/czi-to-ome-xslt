@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06">
+<xsl:stylesheet version="1.1"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06">
 
     <xsl:import href="ImagingEnvironment.xsl"/>
     <xsl:import href="ObjectiveSettings.xsl"/>
@@ -11,6 +12,27 @@
     <xsl:template match="AcquisitionDateAndTime">
         <xsl:element name="ome:AcquisitionDate">
             <xsl:value-of select="."/>
+        </xsl:element>
+    </xsl:template>
+
+    <!-- For single scene images, manually create top level attributes of the /OME/Image/Image element -->
+    <xsl:template name="single_scene_image">
+        <xsl:element name="ome:Image">
+            <!-- Attributes -->
+            <xsl:attribute name="ID">Image:0</xsl:attribute>
+            <xsl:variable name="img" select="/ImageDocument/Metadata/Information/Image"/>
+            <xsl:variable name="chs" select="/ImageDocument/Metadata/DisplaySetting/Channels"/>
+            <!-- Elements -->
+            <xsl:apply-templates select="$img/AcquisitionDateAndTime"/>
+            <!-- ObjectiveSettings -->
+            <xsl:apply-templates select="$img/ObjectiveSettings"/>
+            <!-- Imaging Environment -->
+            <xsl:apply-templates select="/ImageDocument/Metadata/Information/TimelineTracks/TimelineTrack/TimelineElements/TimelineElement/EventInformation/IncubationRecording"/>
+            <!--   Pixels  -->
+            <xsl:apply-templates select="$img">
+                <xsl:with-param name="chs" select="$chs"/>
+                <xsl:with-param name="idx">0</xsl:with-param>
+            </xsl:apply-templates>
         </xsl:element>
     </xsl:template>
 
@@ -29,9 +51,12 @@
             <xsl:variable name="chs" select="/ImageDocument/Metadata/DisplaySetting/Channels"/>
             <!-- Elements -->
             <xsl:apply-templates select="$img/AcquisitionDateAndTime"/>
-            <xsl:apply-templates select="$img/ObjectiveSettings"/>  <!-- ObjectiveSettings -->
-            <xsl:apply-templates select="/ImageDocument/Metadata/Information/TimelineTracks/TimelineTrack/TimelineElements/TimelineElement/EventInformation/IncubationRecording"/>  <!-- Imaging Environment -->
-            <xsl:apply-templates select="$img">  <!--   Pixels  -->
+            <!-- ObjectiveSettings -->
+            <xsl:apply-templates select="$img/ObjectiveSettings"/>
+            <!-- Imaging Environment -->
+            <xsl:apply-templates select="/ImageDocument/Metadata/Information/TimelineTracks/TimelineTrack/TimelineElements/TimelineElement/EventInformation/IncubationRecording"/>
+            <!--   Pixels  -->
+            <xsl:apply-templates select="$img">
                 <xsl:with-param name="chs" select="$chs"/>
                 <xsl:with-param name="idx" select="@Index"/>
             </xsl:apply-templates>
