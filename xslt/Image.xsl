@@ -15,19 +15,21 @@
         </xsl:element>
     </xsl:template>
 
+    <xsl:variable name="img" select="/ImageDocument/Metadata/Information/Image"/>
+    <xsl:variable name="chs" select="/ImageDocument/Metadata/DisplaySetting/Channels"/>
+
+    <xsl:template name="common_image_contents">
+        <xsl:apply-templates select="$img/AcquisitionDateAndTime"/>
+        <xsl:apply-templates select="$img/ObjectiveSettings"/>
+        <!-- Imaging Environment -->
+        <xsl:apply-templates select="/ImageDocument/Metadata/Information/TimelineTracks/TimelineTrack/TimelineElements/TimelineElement/EventInformation/IncubationRecording"/>
+    </xsl:template>
+
     <!-- For single scene images, manually create top level attributes of the /OME/Image/Image element -->
     <xsl:template name="single_scene_image">
         <xsl:element name="ome:Image">
-            <!-- Attributes -->
             <xsl:attribute name="ID">Image:0</xsl:attribute>
-            <xsl:variable name="img" select="/ImageDocument/Metadata/Information/Image"/>
-            <xsl:variable name="chs" select="/ImageDocument/Metadata/DisplaySetting/Channels"/>
-            <!-- Elements -->
-            <xsl:apply-templates select="$img/AcquisitionDateAndTime"/>
-            <!-- ObjectiveSettings -->
-            <xsl:apply-templates select="$img/ObjectiveSettings"/>
-            <!-- Imaging Environment -->
-            <xsl:apply-templates select="/ImageDocument/Metadata/Information/TimelineTracks/TimelineTrack/TimelineElements/TimelineElement/EventInformation/IncubationRecording"/>
+            <xsl:call-template name="common_image_contents"/>
             <!--   Pixels  -->
             <xsl:apply-templates select="$img">
                 <xsl:with-param name="chs" select="$chs"/>
@@ -39,7 +41,6 @@
     <!-- /ImageDocument/Metadata/Information/Image/Dimensions/S/Scenes/Scene => /OME/Image/Image -->
     <xsl:template match="Scene">
         <xsl:element name="ome:Image">
-            <!-- Attributes -->
             <xsl:attribute name="ID">
                 <xsl:text>Image:</xsl:text>
                 <xsl:value-of select="@Index"/>
@@ -47,14 +48,7 @@
             <xsl:attribute name="Name">
                 <xsl:value-of select="@Name"/>
             </xsl:attribute>
-            <xsl:variable name="img" select="/ImageDocument/Metadata/Information/Image"/>
-            <xsl:variable name="chs" select="/ImageDocument/Metadata/DisplaySetting/Channels"/>
-            <!-- Elements -->
-            <xsl:apply-templates select="$img/AcquisitionDateAndTime"/>
-            <!-- ObjectiveSettings -->
-            <xsl:apply-templates select="$img/ObjectiveSettings"/>
-            <!-- Imaging Environment -->
-            <xsl:apply-templates select="/ImageDocument/Metadata/Information/TimelineTracks/TimelineTrack/TimelineElements/TimelineElement/EventInformation/IncubationRecording"/>
+            <xsl:call-template name="common_image_contents"/>
             <!--   Pixels  -->
             <xsl:apply-templates select="$img">
                 <xsl:with-param name="chs" select="$chs"/>
