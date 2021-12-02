@@ -16,7 +16,6 @@
     </xsl:template>
 
     <xsl:variable name="img" select="/ImageDocument/Metadata/Information/Image"/>
-    <xsl:variable name="chs" select="/ImageDocument/Metadata/DisplaySetting/Channels"/>
 
     <xsl:template name="common_image_contents">
         <xsl:apply-templates select="$img/AcquisitionDateAndTime"/>
@@ -32,7 +31,6 @@
             <xsl:call-template name="common_image_contents"/>
             <!--   Pixels  -->
             <xsl:apply-templates select="$img">
-                <xsl:with-param name="chs" select="$chs"/>
                 <xsl:with-param name="idx">0</xsl:with-param>
             </xsl:apply-templates>
         </xsl:element>
@@ -51,7 +49,6 @@
             <xsl:call-template name="common_image_contents"/>
             <!--   Pixels  -->
             <xsl:apply-templates select="$img">
-                <xsl:with-param name="chs" select="$chs"/>
                 <xsl:with-param name="idx" select="@Index"/>
             </xsl:apply-templates>
         </xsl:element>

@@ -164,7 +164,6 @@
     </xsl:template>
 
     <xsl:template match="Image">
-        <xsl:param name="chs" />
         <xsl:param name="idx" />
         <xsl:element name="ome:Pixels">
             <xsl:attribute name="ID">
@@ -183,7 +182,7 @@
                 <xsl:with-param name="image" select="."/>
             </xsl:call-template>
             <!-- Channel -->
-            <xsl:apply-templates select="$chs">
+            <xsl:apply-templates select="/ImageDocument/Metadata/Information/Image/Dimensions/Channels">
                 <xsl:with-param name="idx" select="$idx"/>
             </xsl:apply-templates>
             <xsl:element name="ome:TiffData">
