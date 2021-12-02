@@ -27,6 +27,7 @@ def xslt_path():
     "czi_xml_filename",
     [
         "s_3_t_1_c_3_z_5.czi.xml",
+        "s_1_t_1_c_5_z_20.czi.xml"
     ],
 )
 def test_transform(xslt_path: str, czi_xml_filename: str):
@@ -43,6 +44,10 @@ def test_transform(xslt_path: str, czi_xml_filename: str):
     # Attempt to run transform
     try:
         omexml = transformer(czixml)
+
+        # Uncomment this block to look at produced OME XML when manual testing
+        # with open("produced.ome.xml", "w") as f:
+        #     f.write(ET.tostring(omexml, pretty_print=True, encoding="unicode"))
 
     # Catch any exception
     except Exception as e:

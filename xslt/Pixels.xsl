@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06">
+<xsl:stylesheet version="1.0"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06">
 
 
     <xsl:import href="Channels.xsl"/>
@@ -163,31 +164,34 @@
     </xsl:template>
 
     <xsl:template match="Image">
-        <xsl:param name="chs" />
         <xsl:param name="idx" />
         <xsl:element name="ome:Pixels">
             <xsl:attribute name="ID">
-                <xsl:value-of select="concat('Pixels:', position(), '-', $idx)"/>
+                <xsl:value-of select="concat('Pixels:', position() - 1, '-', $idx)"/>
             </xsl:attribute>
             <xsl:attribute name="DimensionOrder">
-                <xsl:text>XYZCT</xsl:text> <!--  Hardcoded for AICSImageIO  -->
+                <!--  Hardcoded for AICSImageIO  -->
+                <xsl:text>XYZCT</xsl:text>
             </xsl:attribute>
             <xsl:attribute name="SignificantBits">
                 <xsl:value-of select="ComponentBitCount"/>
             </xsl:attribute>
             <xsl:apply-templates select="PixelType"/>
-            <xsl:call-template name="Sizes"> <!-- SizeX SizeY .... SizeT -->
+            <!-- SizeX SizeY .... SizeT -->
+            <xsl:call-template name="Sizes">
                 <xsl:with-param name="image" select="."/>
             </xsl:call-template>
-            <xsl:apply-templates select="$chs" > <!-- Channel -->
-                <xsl:with-param name="idx"  select="$idx"/>
+            <!-- Channel -->
+            <xsl:apply-templates select="/ImageDocument/Metadata/Information/Image/Dimensions/Channels">
+                <xsl:with-param name="idx" select="$idx"/>
             </xsl:apply-templates>
             <xsl:element name="ome:TiffData">
                 <xsl:attribute name="IFD">
                     <xsl:value-of select="position()"/>
                 </xsl:attribute>
             </xsl:element>
-            <xsl:apply-templates select="$subblocks"> <!-- Plane -->
+            <!-- Plane -->
+            <xsl:apply-templates select="$subblocks">
                 <xsl:with-param name="scene_index" select="$idx" />
             </xsl:apply-templates>
         </xsl:element>
