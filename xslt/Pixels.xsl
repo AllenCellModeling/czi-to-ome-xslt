@@ -191,7 +191,7 @@
                 </xsl:attribute>
             </xsl:element>
             <!-- Plane -->
-            <xsl:apply-templates select="$subblocks">
+            <xsl:apply-templates select="$subblocks" mode="plane">
                 <xsl:with-param name="scene_index" select="$idx" />
             </xsl:apply-templates>
         </xsl:element>

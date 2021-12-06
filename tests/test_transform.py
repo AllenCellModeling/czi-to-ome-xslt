@@ -29,6 +29,7 @@ def xslt_path():
         "s_3_t_1_c_3_z_5.czi.xml",
         "s_1_t_1_c_5_z_20.czi.xml",
         "s_3_t_1_c_3_z_5_with_subblocks.czi.xml",
+        "s_1_t_1_c_5_z_20_with_subblocks.czi.xml",
         "subblocks.czi.xml",
     ],
 )
