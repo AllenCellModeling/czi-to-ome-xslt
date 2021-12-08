@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06">
+<xsl:stylesheet version="1.1"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06">
 
     <xsl:template match="ExposureTime">
         <xsl:attribute name="ExposureTime">
@@ -76,12 +77,26 @@
             </xsl:call-template>
             <xsl:apply-templates select="METADATA/Tags/DetectorState/CameraState/ExposureTime"/>
             <xsl:apply-templates select="METADATA" />
-
+            <!-- 
+                The element below is a reference to another element that contains the Acquisition Time
+                for this subblock. This is neccessary because the Plane element doesn't have a way to
+                store this information directly according to the OME XSD.
+            -->
+            <xsl:element name="ome:AnnotationRef">
+                <xsl:attribute name="ID">
+                    <xsl:text>Annotation:SubblockAcquisition</xsl:text>
+                    <!-- Add the name and value of each attribute to the ID of this element -->
+                    <xsl:for-each select="@*">
+                        <xsl:value-of select="name(.)"/>
+                        <xsl:value-of select="."/>
+                    </xsl:for-each>
+                </xsl:attribute>
+            </xsl:element>
         </xsl:element>
     </xsl:template>
 
 
-    <xsl:template match="Subblocks">
+    <xsl:template match="Subblocks" mode="plane">
         <xsl:param name="scene_index"/>
         <xsl:apply-templates select="Subblock[@S=$scene_index]"/>
     </xsl:template>

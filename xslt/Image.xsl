@@ -8,17 +8,25 @@
     <xsl:import href="ObjectiveSettings.xsl"/>
     <xsl:import href="Pixels.xsl"/>
 
-    <!-- /Metadata/Information/Image/AcquisitionDataAndTime => /OME/Image/@AcquisitionDate   -->
-    <xsl:template match="AcquisitionDateAndTime">
-        <xsl:element name="ome:AcquisitionDate">
-            <xsl:value-of select="."/>
-        </xsl:element>
-    </xsl:template>
-
     <xsl:variable name="img" select="/ImageDocument/Metadata/Information/Image"/>
 
     <xsl:template name="common_image_contents">
-        <xsl:apply-templates select="$img/AcquisitionDateAndTime"/>
+        <xsl:param name="idx"/>
+        <xsl:choose>
+            <!-- /Subblocks/Subblock/METADATA/Tags/AcquisitionTime => /OME/Image/@AcquisitionDate   -->
+            <xsl:when test="$subblocks/Subblock[@S=$idx]/METADATA/Tags/AcquisitionTime">
+                <xsl:element name="ome:AcquisitionDate">
+                    <xsl:value-of select="$subblocks/Subblock[@S=$idx]/METADATA/Tags/AcquisitionTime"/>
+                </xsl:element>
+            </xsl:when>
+            <!-- /Metadata/Information/Image/AcquisitionDataAndTime => /OME/Image/@AcquisitionDate   -->
+            <xsl:when test="$img/AcquisitionDateAndTime">
+                <xsl:element name="ome:AcquisitionDate">
+                    <xsl:value-of select="$img/AcquisitionDateAndTime"/>
+                </xsl:element>
+            </xsl:when>
+        </xsl:choose>
+        <!-- ObjectiveSettings -->
         <xsl:apply-templates select="$img/ObjectiveSettings"/>
         <!-- Imaging Environment -->
         <xsl:apply-templates select="/ImageDocument/Metadata/Information/TimelineTracks/TimelineTrack/TimelineElements/TimelineElement/EventInformation/IncubationRecording"/>
@@ -28,7 +36,9 @@
     <xsl:template name="single_scene_image">
         <xsl:element name="ome:Image">
             <xsl:attribute name="ID">Image:0</xsl:attribute>
-            <xsl:call-template name="common_image_contents"/>
+            <xsl:call-template name="common_image_contents">
+                <xsl:with-param name="idx">0</xsl:with-param>
+            </xsl:call-template>
             <!--   Pixels  -->
             <xsl:apply-templates select="$img">
                 <xsl:with-param name="idx">0</xsl:with-param>
@@ -38,18 +48,21 @@
 
     <!-- /ImageDocument/Metadata/Information/Image/Dimensions/S/Scenes/Scene => /OME/Image/Image -->
     <xsl:template match="Scene">
+        <xsl:variable name="idx" select="@Index"/>
         <xsl:element name="ome:Image">
             <xsl:attribute name="ID">
                 <xsl:text>Image:</xsl:text>
-                <xsl:value-of select="@Index"/>
+                <xsl:value-of select="$idx"/>
             </xsl:attribute>
             <xsl:attribute name="Name">
                 <xsl:value-of select="@Name"/>
             </xsl:attribute>
-            <xsl:call-template name="common_image_contents"/>
+            <xsl:call-template name="common_image_contents">
+                <xsl:with-param name="idx" select="$idx"/>
+            </xsl:call-template>
             <!--   Pixels  -->
             <xsl:apply-templates select="$img">
-                <xsl:with-param name="idx" select="@Index"/>
+                <xsl:with-param name="idx" select="$idx"/>
             </xsl:apply-templates>
         </xsl:element>
     </xsl:template>
