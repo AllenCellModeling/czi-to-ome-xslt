@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06">
+    xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06"
+    xmlns:str="http://exslt.org/strings" extension-element-prefixes="str">
 
 
     <xsl:import href="Channels.xsl"/>
@@ -95,8 +96,20 @@
 
     <xsl:template name="Sizes">
         <xsl:param name="image"/>
-        <xsl:apply-templates select="$image/SizeX"/>
-        <xsl:apply-templates select="$image/SizeY"/>
+        <!-- If there is a `ParameterCollection` containing `Binning` with a status of "SuperValid", we can use the `ImageFrame` from that `ParameterCollection`
+             to get Size X and Y for a single tile. If no `ParameterCollection/Binning/@Status` is "SuperValid", we can use any other `ParameterCollection/ImageFrame`. -->
+        <xsl:variable name="param_collection" select="/ImageDocument/Metadata/HardwareSetting/ParameterCollection[ImageFrame and Binning/@Status = 'SuperValid'] | /ImageDocument/Metadata/HardwareSetting/ParameterCollection[ImageFrame and not(/ImageDocument/Metadata/HardwareSetting/ParameterCollection[Binning/@Status = 'SuperValid'])]" />
+        <!-- To get accurate values for SizeX and SizeY, we need to get the values for a single tile. These are available on the `ImageFrame` element,
+             which will have a value of the form "x_offset,y_offset,x_pixels,y_pixels".
+             NOTE: While this is the most accurate way to extract SizeX and SizeY that we know of, it may not be entirely correct for mosaic images,
+             depending on if users expect these values to correspond to a single tile or a merged tile. We will likely need to revisit this in the future. -->
+        <xsl:variable name="image_frame_vals" select="str:tokenize($param_collection/ImageFrame, ',')" />
+        <xsl:attribute name="SizeX">
+            <xsl:value-of select="$image_frame_vals[3]"/>
+        </xsl:attribute>
+        <xsl:attribute name="SizeY">
+            <xsl:value-of select="$image_frame_vals[4]"/>
+        </xsl:attribute>
         <xsl:call-template name="SizeZ">
             <xsl:with-param name="simg" select="$image"/>
         </xsl:call-template>

@@ -47,8 +47,26 @@ This work has already been incorporated into
 from aicsimageio import AICSImage
 
 img = AICSImage("your-file.czi")
-img.save("your-converted-file.ome.tiff")
+img.ome_metadata
 ```
+
+## EXSLT
+This work utilizes the EXSLT extensions for XSLT 1.0 (for example, the `str:tokenize` function). Popular XML libraries
+such as `lxml` have built in support for EXSLT. To use these extensions, include the necessary attributes on `<xsl:stylesheet>` in the
+file you are working on:
+```
+<xsl:stylesheet version="1.0"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:ome="http://www.openmicroscopy.org/Schemas/OME/2016-06"
+    xmlns:str="http://exslt.org/strings" extension-element-prefixes="str">
+    ...
+```
+You can then use an EXSLT function like so:
+```
+<xsl:value-of select="str:tokenize(/Some/Path, ',')" />
+```
+
+For more information on using EXSLT and the functions avaialbe, see the [EXSLT docs](http://exslt.org/howto.html).
 
 ## Comparison with Bioformats
 
