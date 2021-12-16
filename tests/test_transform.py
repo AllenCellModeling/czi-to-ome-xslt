@@ -31,6 +31,7 @@ def xslt_path():
         "s_3_t_1_c_3_z_5_with_subblocks.czi.xml",
         "s_1_t_1_c_5_z_20_with_subblocks.czi.xml",
         "subblocks.czi.xml",
+        "RBG-8bit.czi.xml",
     ],
 )
 def test_transform(xslt_path: str, czi_xml_filename: str):
