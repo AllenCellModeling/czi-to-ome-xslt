@@ -70,13 +70,15 @@
     <!-- /Metadata/Scaling/Items/Distance[@Id=X]/Value => /OME/Image/Pixels/@PhysicalSizeX -->
     <xsl:template match="Distance">
         <xsl:param name="dim"/>
-        <xsl:attribute name="PhysicalSize{$dim}">
-            <!-- `Value` is always in meters. Convert it to µm. -->
-            <xsl:value-of select="Value * 1000000"/>
-        </xsl:attribute>
-        <xsl:attribute name="PhysicalSize{$dim}Unit">
-            <xsl:text>µm</xsl:text>
-        </xsl:attribute>
+        <xsl:if test="Value &gt; 0">
+            <xsl:attribute name="PhysicalSize{$dim}">
+                <!-- `Value` is always in meters. Convert it to µm. -->
+                <xsl:value-of select="Value * 1000000"/>
+            </xsl:attribute>
+            <xsl:attribute name="PhysicalSize{$dim}Unit">
+                <xsl:text>µm</xsl:text>
+            </xsl:attribute>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="Items">
