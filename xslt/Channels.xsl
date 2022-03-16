@@ -72,7 +72,13 @@
         <xsl:param name="idx"/>
         <xsl:element name="ome:Channel">
             <xsl:attribute name="ID">
-                <xsl:text>Channel:</xsl:text>
+                <!-- Prepend 'Channel:' if it isn't contained within the ID in order to satisfy OME spec -->
+                <xsl:variable name="channel_id">
+                    <xsl:value-of select="@Id"/>
+                </xsl:variable>
+                <xsl:if test="not(contains($channel_id,'Channel:'))">
+                    <xsl:text>Channel:</xsl:text>
+                </xsl:if>
                 <xsl:value-of select="@Id"/>
                 <xsl:text>-</xsl:text>
                 <xsl:value-of select="$idx"/>
