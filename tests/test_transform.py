@@ -51,8 +51,8 @@ def test_transform(xslt_path: str, czi_xml_filename: str):
         omexml = transformer(czixml)
 
         # Uncomment this block to look at produced OME XML when manual testing
-        with open("produced.ome.xml", "w") as f:
-            f.write(ET.tostring(omexml, pretty_print=True, encoding="unicode"))
+        # with open("produced.ome.xml", "w") as f:
+        #     f.write(ET.tostring(omexml, pretty_print=True, encoding="unicode"))
 
     # Catch any exception
     except Exception as e:
