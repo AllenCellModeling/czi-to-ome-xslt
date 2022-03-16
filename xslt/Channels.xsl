@@ -72,6 +72,7 @@
         <xsl:param name="idx"/>
         <xsl:element name="ome:Channel">
             <xsl:attribute name="ID">
+                <xsl:text>Channel:</xsl:text>
                 <xsl:value-of select="@Id"/>
                 <xsl:text>-</xsl:text>
                 <xsl:value-of select="$idx"/>
