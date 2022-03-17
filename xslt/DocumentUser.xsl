@@ -9,10 +9,10 @@
     <!-- /Metadata/Information/Document/UserName => /OME/Experimenter@UserName -->
     <xsl:template match="UserName">
         <xsl:attribute name="ID">
-            <xsl:text>Experimenter:</xsl:text><xsl:value-of select="."/>
+            <xsl:text>Experimenter:</xsl:text><xsl:value-of select="translate(.,' ','_')"/>
         </xsl:attribute>
         <xsl:attribute name="UserName">
-            <xsl:value-of select="."/>
+            <xsl:value-of select="translate(.,' ','_')"/>
         </xsl:attribute>
     </xsl:template>
 
