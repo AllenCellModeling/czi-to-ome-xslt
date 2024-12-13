@@ -70,3 +70,36 @@ def test_transform(xslt_path: str, czi_xml_filename: str):
 
     # Test read from OME-Types
     from_xml(str(omexml))
+
+
+@pytest.mark.parametrize(
+    "czi_xml_filename, expected_lasers",
+    [
+        (
+            "Confocal_test_4c.czi.xml",
+            [
+                '<ome:Laser ID="LightSource:MTBLKM980LaserLine561"/>',
+                '<ome:Laser ID="LightSource:MTBLKM980LaserLine488"/>',
+                '<ome:Laser ID="LightSource:MTBLKM980LaserLine405"/>',
+                '<ome:Laser ID="LightSource:MTBLKM980LaserLine639"/>',
+            ],
+        )
+    ],
+)
+def test_empty_wavelength_transform(xslt_path: str, czi_xml_filename: str, expected_lasers: list):
+    # Arrange
+    czi_xml_filepath = str(RESOURCES_DIR / czi_xml_filename)
+    template = ET.parse(xslt_path)
+    transformer = ET.XSLT(template)
+    czixml = ET.parse(czi_xml_filepath)
+
+    # Act
+    omexml = transformer(czixml)
+    omexml_str = ET.tostring(omexml, pretty_print=True, encoding="unicode")
+
+    # Assert
+    for laser in expected_lasers:
+        assert laser in omexml_str, f"Expected laser {laser} not found in transformed XML"
+
+    # Test that the resulting XML can be read by OME-Types
+    from_xml(omexml_str)

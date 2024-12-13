@@ -98,11 +98,15 @@ ome/ome.xsd: 979 # # This means that for more details on how this section of the
                 <xsl:when test="LightSourceType/Laser">
                     <xsl:element name="ome:Laser">
                         <xsl:attribute name="ID">
+                            <xsl:text>LightSource:</xsl:text>
                             <xsl:value-of select="@Id"/>
                         </xsl:attribute>
-                        <xsl:attribute name="Wavelength">
-                            <xsl:value-of select="LightSourceType/Laser/Wavelength"/>
-                        </xsl:attribute>
+                        <!-- Add Wavelength only if it's not empty -->
+                        <xsl:if test="string(LightSourceType/Laser/Wavelength) != ''">
+                            <xsl:attribute name="Wavelength">
+                                <xsl:value-of select="LightSourceType/Laser/Wavelength"/>
+                            </xsl:attribute>
+                        </xsl:if>
                     </xsl:element>
                 </xsl:when>
                 <xsl:otherwise>
