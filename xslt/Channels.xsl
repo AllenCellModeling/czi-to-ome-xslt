@@ -6,28 +6,34 @@
 
     <!-- /Metadata/DisplaySetting/Channels/Channel/IlluminationType => /OME/Image/Channel/IlluminationType -->
     <xsl:template match="IlluminationType">
-        <xsl:attribute name="IlluminationType">
-            <xsl:value-of select="."/>
-        </xsl:attribute>
+        <xsl:if test="string-length(.) &gt; 0">
+            <xsl:attribute name="IlluminationType">
+                <xsl:value-of select="."/>
+            </xsl:attribute>
+        </xsl:if>
     </xsl:template>
 
 
     <xsl:template match="ExcitationWavelength">
-        <xsl:attribute name="ExcitationWavelength">
-            <xsl:value-of select="."/>
-        </xsl:attribute>
-        <xsl:attribute name="ExcitationWavelengthUnit">
-            <xsl:text>nm</xsl:text>
-        </xsl:attribute>
+        <xsl:if test="string-length(.) &gt; 0">
+            <xsl:attribute name="ExcitationWavelength">
+                <xsl:value-of select="."/>
+            </xsl:attribute>
+            <xsl:attribute name="ExcitationWavelengthUnit">
+                <xsl:text>nm</xsl:text>
+            </xsl:attribute>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="EmissionWavelength">
-        <xsl:attribute name="EmissionWavelength">
-            <xsl:value-of select="."/>
-        </xsl:attribute>
-        <xsl:attribute name="EmissionWavelengthUnit">
-            <xsl:text>nm</xsl:text>
-        </xsl:attribute>
+        <xsl:if test="string-length(.) &gt; 0">
+            <xsl:attribute name="EmissionWavelength">
+                <xsl:value-of select="."/>
+            </xsl:attribute>
+            <xsl:attribute name="EmissionWavelengthUnit">
+                <xsl:text>nm</xsl:text>
+            </xsl:attribute>
+        </xsl:if>
     </xsl:template>
 
     <!-- TODO: The OME spec only allows for one light source per channel,
@@ -86,13 +92,15 @@
             <xsl:attribute name="Name">
                 <xsl:value-of select="@Name"/>
             </xsl:attribute>
-            <xsl:attribute name="AcquisitionMode">
-                <xsl:value-of select="AcquisitionMode"/>
-            </xsl:attribute>
+            <xsl:if test="AcquisitionMode and string-length(AcquisitionMode) &gt; 0">
+                <xsl:attribute name="AcquisitionMode">
+                    <xsl:value-of select="AcquisitionMode"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates select="IlluminationType"/>
             <xsl:apply-templates select="ExcitationWavelength"/>
             <xsl:apply-templates select="EmissionWavelength"/>
-            <xsl:if test="IlluminationType = 'Epifluorescence'">
+            <xsl:if test="IlluminationType = 'Epifluorescence' and Fluor and string-length(Fluor) &gt; 0">
                 <xsl:attribute name="Fluor">
                     <xsl:value-of select="Fluor"/>
                 </xsl:attribute>

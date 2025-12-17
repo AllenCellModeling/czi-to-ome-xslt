@@ -198,9 +198,11 @@
                 <!--  Hardcoded for AICSImageIO  -->
                 <xsl:text>XYZCT</xsl:text>
             </xsl:attribute>
-            <xsl:attribute name="SignificantBits">
-                <xsl:value-of select="ComponentBitCount"/>
-            </xsl:attribute>
+            <xsl:if test="ComponentBitCount and string-length(ComponentBitCount) &gt; 0">
+                <xsl:attribute name="SignificantBits">
+                    <xsl:value-of select="ComponentBitCount"/>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates select="PixelType"/>
             <!-- SizeX SizeY .... SizeT -->
             <xsl:call-template name="Sizes">
