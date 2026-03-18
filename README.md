@@ -40,13 +40,13 @@ with open("your-converted-czi-metadata.ome.xml", "w") as open_f:
     open_f.write(str(omexml))
 ```
 
-This work has already been incorporated into
-[`aicsimageio`](https://github.com/bioio-devs/aicsimageio).
+This work is incorporated into
+[`bioio`](https://github.com/bioio-devs/bioio), in the [`bioio-czi`](https://github.com/bioio-devs/bioio-czi) module.
 
 ```python
-from aicsimageio import AICSImage
+from bioio import BioImage
 
-img = AICSImage("your-file.czi")
+img = BioImage("your-file.czi")
 img.ome_metadata
 ```
 
